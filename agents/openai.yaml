@@ -1,0 +1,4 @@
+interface:
+  display_name: "Image-Led Frontend"
+  short_description: "Build React UIs from generated mocks"
+  default_prompt: "Use $image-skill to design a React shadcn/ui app from a generated mock, then implement and visually verify it."
