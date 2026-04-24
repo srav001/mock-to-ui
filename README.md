@@ -1,4 +1,4 @@
-`Codex Skill | GPT Image design boards -> React + shadcn/ui`
+`Image design boards -> React + shadcn/ui`
 
 # mock-to-ui
 
