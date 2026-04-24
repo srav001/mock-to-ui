@@ -1,4 +1,4 @@
 interface:
-  display_name: "Image-Led Frontend"
-  short_description: "Build React UIs from generated mocks"
-  default_prompt: "Use $image-skill to design a React shadcn/ui app from a generated mock, then implement and visually verify it."
+  display_name: "mock-to-ui"
+  short_description: "Generate premium mocks first, then build the UI"
+  default_prompt: "Use $mock-to-ui to generate a GPT Image design board for an app, then translate the approved mock into React + shadcn/ui with visual verification."

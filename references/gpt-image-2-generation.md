@@ -114,6 +114,16 @@ Understand the purpose, user, tone, constraints, and the one memorable visual id
 Anti-Generic Rules:
 Do not produce a generic AI dashboard, Bootstrap/admin-template UI, default blue-gray shadcn screen, equal-card grid, purple gradient hero, or common SaaS layout with no point of view. Use distinctive typography, committed color, purposeful composition, contextual depth, and polished component details.
 
+## Reference Comparison Protocol
+
+Before judging any generated mock:
+
+1. Load all eight temporary reference images into context.
+2. Compare the new mock against `references/mock-comparison-checklist.md`.
+3. Reject the mock immediately if any critical checklist item fails.
+4. Reject the mock if it passes fewer than 44 of the 50 checklist items.
+5. If the same failure repeats across fresh prompts, tighten the reusable skill guidance before generating again.
+
 Style Direction:
 <default premium minimal light-mode reference style unless the user gave a strict different style>
 
@@ -166,9 +176,11 @@ Before asking for approval, inspect the image yourself:
 - Is the spacing good enough: broad gutters, generous panel padding, enough negative space, and not too many visible rows/widgets?
 - Does it avoid information overload by using progressive disclosure instead of showing every product module on one screen?
 - Are local modules spacious enough: bar groups, workflow routes, side panels, bottom actions, and mobile sections should not feel compressed.
+- Did the mock reduce first-screen density by omitting secondary content, or did it simply shrink more content into view?
 - Does it still read as an app workspace rather than a website, landing-page hero, poster, or marketing concept?
 - Do surfaces pop through a subtle background/content color offset rather than pure white everywhere?
 - Are shadows modern and useful: `shadow-xs`/`shadow-sm` style where needed, no hard edge, no heavy dark offset, no old-school `shadow-lg` card look?
+- Do lifted notice/action cards stay concise and decision-focused, instead of becoming stacked mini-pages with several sections and buttons?
 - If the design-system strip shows elevation tokens, are those tokens actually used in the app on navigation, selected records, important notices/cards, floating controls, popovers/sheets, mobile navigation controls, mobile preview, or one important surface?
 - Is the layout over-carded? If every group is boxed with a border/card shell, regenerate with more open sections and selective surfaces.
 - Are structured components visually consistent: centered timeline dots, clean connector lines, consistent repeated row/card geometry, aligned icons, and no clipping?
@@ -179,6 +191,15 @@ If the mock is clearly unusable, regenerate once before showing it to the user.
 ## Validation Testing
 
 When testing whether the reusable skill guidance works, use fresh prompts rather than patching the previous prompt. Delete old scratch prompts, create a new task prompt from the current skill guidance, generate one board, inspect the failure modes, then update the reusable guidance if needed. Do not rely on multiple prompt iterations for validation because that can hide whether a new app request will follow the skill by default.
+
+For repeatability testing, prefer a fresh four-app batch rather than a single prompt:
+
+- CPQ
+- ERP
+- ticketing / Jira-style work tracking
+- health / fitness
+
+The point of this batch is to prove that the skill does not only work for one layout or one color family. Run each app from a fresh prompt file. Compare each mock against the 50-point checklist, then run the batch-level repeatability checks in `references/mock-comparison-checklist.md`. If one app looks strong and the others collapse into generic blue dashboards or habitual sidebars, the skill still fails.
 
 ## Default-Style Quality Gate
 
@@ -192,12 +213,17 @@ Reject and regenerate if any criterion is visibly weak:
 - Navigation contrast: if sidebars, rails, top bars, tabs, breadcrumbs, command bars, or filter bars exist, they need enough tonal contrast and active-state clarity to anchor the workspace.
 - Navigation surface: when navigation exists, it should read slightly darker, cooler, or more tinted than the main content canvas at thumbnail scale; same-white nav and content fail.
 - Navigation balance: the nav surface should not become a saturated or overly contrasty block. If it dominates the page more than the active workspace, regenerate with subtler tonal separation.
+- Navigation fit: do not default to a sidebar. Use the navigation model that best fits the product, which may be a top bar, top tabs, segmented header, bottom navigation, or a lighter hybrid layout.
+- Color bias: do not default to blue primary and blue-tinted navigation unless the user or product actually calls for blue. Choose other coherent accent families when appropriate.
 - Radius consistency: cards, rows, inputs, buttons, tabs, chips, and icon buttons should follow a coherent radius scale and match the design-system strip.
-- Shadows and elevation: use modern small elevation like Tailwind `shadow-xs` or a tighter/faded `shadow-sm`; shadows should be soft, tight, clean, close to the surface, and low-opacity, not wide dirty halos or hard old card shadows. Elevation tokens shown in the design-system strip should be visible in the main app UI on meaningful lifted states such as navigation, selected records, important notices/cards, mobile nav affordances, floating controls, and popovers, not only as samples.
+- Shadows and elevation: use modern small elevation like Tailwind `shadow-xs` or a tighter/faded `shadow-sm`; shadows should be soft, tight, clean, close to the surface, and low-opacity, not wide dirty halos or hard old card shadows. Even when the shadow is small, its fade must feather smoothly instead of ending as a sharp gray band. Elevation tokens shown in the design-system strip should be visible in the main app UI on meaningful lifted states such as navigation, selected records, important notices/cards, mobile nav affordances, floating controls, and popovers, not only as samples.
+- Header/top-bar shadows: if top navigation or a command bar uses elevation, it should be especially tight, slim, and light; broad header shadows fail immediately.
 - Card usage: not every group should be boxed. Use open sections, bands, typography, and spacing where cards are unnecessary.
 - Spacing: large gutters, generous interior padding, and visible negative space.
 - Progressive disclosure: the first screen should prioritize the current task and use tabs, drawers, drill-down pages, scrolling, or collapsed states for secondary information.
 - Minimum necessary content: visible modules should directly support the immediate task; secondary lists, history, timelines, activity, analytics, and configuration detail should move out of the first screen unless essential.
+- Do not solve density by shrinking everything to fit. Prefer omitting one whole secondary module or collapsing it behind drill-down.
+- Lifted action/warning/next-step cards should stay compact and readable. If the card contains several titled blocks, long supporting text, and many equal-weight actions, it is too dense.
 - Local spacing: side modules, workflow routes, action bars, and mobile modules must have enough breathing room, not just the overall canvas.
 - Mobile prioritization: the phone preview should omit/summarize/collapse secondary desktop modules instead of squeezing every section into a narrow viewport.
 - Typography: strong display/numeric hierarchy with lighter secondary text.

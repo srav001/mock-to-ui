@@ -13,8 +13,10 @@ The default style must be visibly different from an ordinary enterprise admin te
 For the first mock, do not choose the safest neutral dashboard variant and do not start in dark mode. Pick an opinionated light-mode default from the reference language: soft editorial finance, layered sales report, warm product overview, or quiet collaboration workspace. The output should have one strong stylistic identity, not a diluted average of all references.
 
 The quality bar is not "clean SaaS." A clean functional app screen can still fail if it is just one white dashboard card with a few polite controls. The default should have a designed-object feeling: a visible stage, clear surface hierarchy, large quiet regions, confident typographic anchors, and a few custom data objects that would not appear in a starter kit.
+It can also fail when the page is polished but still structurally resolves as two or three large neighboring cards under a header. The references feel more composed than that: they mix open bands, embedded zones, floating controls, selected lanes, and one or two truly special lifted surfaces.
 
 This is still for building working apps, not marketing pages or portfolio concepts. Do not turn the main app screen into a landing-page hero, poster, or editorial website. Keep the design operational: visible navigation, controls, lists, filters, forms, timelines, actions, state, and realistic interaction surfaces should remain central. The style should make an app feel premium, not make the app stop feeling like software.
+Do not introduce scenic or decorative illustration motifs into the workspace background unless the product explicitly needs them. Leaves, landscape washes, mountain scenes, lifestyle cutouts, decorative blobs, or ambient editorial art quickly push the result toward marketing-page composition instead of app UI. If the design needs atmosphere, keep it structural and tonal: subtle surface temperature, faint grain, restrained contour lines, or barely visible geometry tied to the UI.
 
 ## Color
 
@@ -25,6 +27,7 @@ The light screens use cool off-white, pale gray, and porcelain backgrounds rathe
 - Borders: very light gray with low contrast.
 - Accent colors: one or two vivid accents only, such as coral, rose, mint, electric green, amber, or deep navy.
 - Status colors: softened tints with readable text, not saturated badge spam.
+- Do not default to blue as the primary color family. Blue is valid when the brand or product calls for it, but the default system should also comfortably generate green, olive, maroon, rust, charcoal, cocoa, black-led monochrome, teal, forest, and other restrained palettes.
 
 The references often separate the outer background from the main content by only a few perceptual steps. This slight offset makes the content pop without looking contrasty:
 
@@ -38,6 +41,7 @@ The references often separate the outer background from the main content by only
 - The background/app offset must remain visible at thumbnail scale. If the app looks like a white rectangle on an almost-white page, increase the outer tint or make the app canvas warmer.
 - The outer stage must remain visible on desktop, not only in the mobile preview. Keep enough tinted margin around the app frame and avoid letting the app canvas blend into the board background.
 - Use accent color as a focal mark, pill, tab, icon, short rule, or partial stroke. Avoid wrapping large hero panels in full bright outlines; that can make the UI feel like a form validation state instead of a premium layout.
+- Navigation surfaces need slightly more tonal separation than the main canvas so they anchor the workspace at a glance. Same-white nav and content fail; the nav should be a little cooler, darker, or more tinted, while still staying refined and not heavy.
 
 The dark screens use black and near-black surfaces with restrained contrast:
 
@@ -46,7 +50,7 @@ The dark screens use black and near-black surfaces with restrained contrast:
 - Accent colors: neon mint, acid green, orange, or white used sparingly.
 - Glow: color appears as a soft bloom or gradient wash behind charts, not as a generic full-page gradient.
 
-Avoid one-note palettes. A good screen may be mostly neutral, but it still has controlled accent contrast and depth.
+Avoid one-note palettes. A good screen may be mostly neutral, but it still has controlled accent contrast and depth. Also avoid a hidden blue bias where every fresh generation becomes blue primary with a blue-tinted sidebar.
 
 ## Borders And Radius
 
@@ -83,6 +87,8 @@ Depth is soft and layered, but it should not depend on obvious old-school card s
 - Many regions should have no border and no card shell; they can live directly on the app canvas through spacing and typography.
 - Selected items can look slightly raised through a brighter surface, subtle border color, and small modern shadow.
 - Dark UIs rely more on border, glow, and tonal contrast than classic drop shadow.
+- If the main screen resolves as two or three large neighboring bordered cards sitting on the canvas, it is still too close to a template. At least one major area should be open, partially bounded, integrated into a band, or embedded directly in the canvas.
+- A dominant object should feel compositionally special. If the focal object is only one more card beside two sibling cards of similar weight, the screen needs redesign.
 - Floating overlays, command palettes, popovers, and cards should feel lifted but remain understated; the shadow should fade smoothly into the background.
 - Elevation tokens shown in the design-system strip must be represented in the actual app UI. They are not just documentation swatches. Use them on meaningful lifted states such as navigation chrome, active nav, selected records, important notices/cards, compact floating controls, popovers/sheets, mobile navigation controls, mobile preview devices, and one important focal surface when useful. The effect should be visible enough to read as elevation at thumbnail scale, but still tighter, thinner, and more faded than a normal card shadow.
 
@@ -91,6 +97,7 @@ Avoid generic `shadow-md`, `shadow-lg`, or larger shadows as the default. Avoid 
 Reference-grade shadow behavior:
 
 - The shadow should sit close to the element and fade cleanly within a short distance.
+- The fade must remain soft across that short distance. Reject any shadow that still looks like it ends with a crisp edge, hard band, or visible gray cutoff.
 - It should not create a broad gray cloud around the card.
 - It should not become the main method of separating every panel.
 - It should be paired with stronger tonal background contrast so the UI does not become flat.
@@ -139,6 +146,7 @@ Navigation and workspace chrome should anchor the product without becoming heavy
 - Mobile navigation controls, hamburger buttons, bottom tabs, and drawers should inherit the same contrast and tight elevation behavior when present; they should not look flatter than the desktop nav system.
 - Do not force a sidebar or top nav when the app does not need one. Apply the contrast rule only to the navigation structure implied by the product.
 - Keep navigation contrast balanced: clearer than the canvas, but not heavier than the main workflow. If the sidebar becomes the most visually dominant element, reduce its tint and rely on the active state, divider, and tight edge elevation.
+- Sidebar is not the default answer. Many apps should use a top bar, top tabs, segmented header, or bottom navigation instead. The chosen navigation model should fit the workflow, not the component library.
 
 Strong light-mode composition patterns:
 
@@ -170,12 +178,16 @@ The first screen does not need to show the whole product. Good app UI uses progr
 
 - Leave real empty areas and quiet bands. Empty space is part of the design, not unused capacity to fill.
 - Prefer a clear primary workflow region with only the supporting regions needed for the user's current decision, rather than a wall of equally important modules.
+- Supporting modules should usually be quieter, more open, or less boxed than the active object. Avoid giving every major module the same card shell, border strength, and visual weight.
+- When in doubt, remove one whole supporting module instead of compressing all modules to fit. Omission is better than a crowded "complete" first screen.
 - If the product has many metrics, lists, charts, forms, and workflows, do not place them all on the first screen. Choose what the user needs now and move the rest behind navigation, scroll, or drill-down.
 - Data-heavy does not mean visually dense. Use larger row heights, sparse visible records, bigger gutters, and clearer hierarchy so the user does not feel overloaded.
 - A main page can imply additional content below the fold; it does not need every module visible in the design board viewport.
 - Use tabs, collapsed rows, drawers, detail pages, and secondary views to keep the first screen calm.
 - Visible modules must earn their place by supporting the immediate task. Move secondary lists, version history, detailed timelines, activity, audit trails, analytics, and configuration detail behind navigation, tabs, drawers, drill-down pages, or scroll when they are not needed right now.
 - Do not add another panel merely because there is empty space. Empty space is part of the premium composition.
+- Do not fill the page with a balanced trio of equally weighted panels just because the grid allows it. That symmetry often makes the result feel assembled rather than designed.
+- Lifted support cards should stay concise. A decision card, warning card, next-step card, or insight card should present one issue, a short rationale, and the minimum actions needed. If it reads like a full side page shrunk into one card, it is too dense.
 
 If a mock has many tiny labels, dense rows, packed cards, tight gutters, every panel filled to the edge, or no obvious breathing room, reject it and regenerate with stronger spacing direction.
 
@@ -202,7 +214,8 @@ Generated UI mocks can fail through small inconsistencies even when the overall 
 - Chips and badges should not collide with text or drift vertically.
 - Mobile previews should not contain clipped cards, cramped text, or duplicated controls.
 - Component shadows should be coherent; one card should not randomly float more than its siblings unless intentionally selected.
-- Shadows should feather smoothly. Reject shadows that stop abruptly, look dirty, extend too far, or create a hard gray outline.
+- Shadows should feather smoothly. Reject shadows that stop abruptly, look dirty, extend too far, create a hard gray outline, or read as a sharp shadow ring under an otherwise refined surface.
+- On small lifted cards, the shadow should feel barely-there: tight, soft, and close to the edge. If the lower edge reads as a distinct gray band in a crop, it is too sharp.
 - Avoid partially cropped or edge-cut elements unless the design clearly uses an intentional carousel/overflow pattern.
 
 Stronger default composition moves:
@@ -213,7 +226,12 @@ Stronger default composition moves:
 - Prefer icon rails, nested guide lines, active pills, and layered command/search surfaces over a stock vertical menu.
 - Make mobile a designed companion view with its own hierarchy, not a simple stack of desktop cards.
 - Vary scale deliberately: one prominent metric or title, one dominant workflow region, several compact controls, and sparse supporting charts. Avoid website-hero scale for app titles.
+- Keep at least one major secondary region open or canvas-integrated rather than fully carded. The screen should not read as a tidy row of boxed panels.
 - In dark companion variants, use a black outer stage, graphite panels, luminous accent bars, soft chart glow, and high-contrast white type instead of default dark cards.
+- Avoid the cleaned-up admin fallback where the page becomes: sidebar, top bar, title, factual strip, one notice card, one summary card, and a bottom action row. That structure is still too literal and too generic unless it is transformed by stronger composition and a more distinctive active object.
+- Avoid long thin fact strips full of small metrics under the page title. They flatten the hierarchy and make the screen feel like a dashboard template. Let the active object or one richer supporting surface carry the most important facts instead.
+- Avoid repeated icon-label-value columns spread evenly across the page. That metadata rail is another generic enterprise pattern. Use fewer facts, better grouping, and stronger hierarchy.
+- Use at least one product-specific visual object even on sparse screens. The best references still include a memorable domain-shaped element: a composition stack, a route, a radial, a weighted bar cluster, a timeline, a resource band, or another structured form that makes the app feel designed instead of templated.
 
 ## Components
 
@@ -227,6 +245,8 @@ Controls are familiar but highly styled:
 - Cards often have internal toolbars, chips, small menu dots, and embedded charts.
 - Tables are often replaced by rich rows, lists, cards, timelines, or grouped panels when visual quality matters.
 - If a table-like list is necessary, make it secondary and visually transformed: selected row as a lifted lane, sibling rows as open records, grouped lanes, timeline markers, product/data pills, status/risk indicators, and generous row rhythm. Avoid bordered table boxes with many columns.
+- Avoid recreating spreadsheet logic inside the main focal lane by adding many tiny columns, metadata cells, or repeated per-row controls. Keep rows curated and sparse.
+- Avoid photo-heavy row thumbnails or media tiles unless the product truly depends on imagery. In most operational web apps they add clutter and pull the mock away from the reference quality bar.
 
 For shadcn/ui implementation, use the primitives but heavily tune spacing, radius, shadows, border opacity, type scale, and component composition.
 
@@ -288,6 +308,10 @@ Avoid:
 - Bootstrap/admin-template look.
 - Uniform grids of identical cards.
 - Conventional left-nav + top filters + KPI row + plain table + right details as the default answer.
+- A sparse but still generic admin layout: sidebar + top bar + title + fact strip + one or two cards + bottom actions.
+- Long horizontal stat strips that turn the main screen into labeled columns instead of a designed workspace.
+- Evenly repeated metadata columns with small icons and labels under the main title.
+- Screens that are only title, facts, notice card, and action buttons with no richer domain-specific visual object.
 - A design board where the main app looks like a normal SaaS dashboard and only the token strip looks designed.
 - Dense dashboards packed with too many rows, chips, metrics, side panels, and tiny labels.
 - First screens that try to expose every product module, chart, row, status, workflow, and action at once.
@@ -303,6 +327,8 @@ Avoid:
 - Desktop views where the outer tinted background disappears and everything reads as one pale surface.
 - Navigation chrome that is the same near-white as the content canvas, especially sidebars and top bars.
 - Navigation chrome that overcorrects into a saturated or overly contrasty colored slab.
+- Blue primary plus blue-tinted sidebar appearing by default when the brief did not ask for blue.
+- Sidebars used by default even when the product would read better with top navigation or another lighter navigation model.
 - Inconsistent corner radii between sibling cards, rows, controls, and buttons.
 - Sidebar shadows that spread too far, look dirty, or create a harsh vertical strip.
 - Design docks that show elevation samples while the actual app never uses elevation.
@@ -325,7 +351,7 @@ Avoid:
 When the user does not specify a strict style, include this default style direction in the GPT Image prompt:
 
 ```text
-A premium modern SaaS interface inspired by soft editorial dashboard references: a visibly tinted pale background, lighter cool off-white/porcelain content canvas instead of raw white, brighter cool-white focal surfaces, visibly tinted/darker navigation chrome when navigation exists, a large rounded app frame, de-carded active-object hero area, generous whitespace, broad gutters, large panel padding, pill controls, selective low-contrast borders, selective Tailwind `shadow-xs`/tighter faded `shadow-sm` elevation used in the actual UI for navigation, selected records, important notices/cards, mobile nav affordances, floating controls, popovers, or one important focal surface, one strong accent color, expressive metric typography, asymmetric open layout, background bands and open sections instead of boxing every group, a few rich rows instead of dense tables, and a designed mobile companion view. Avoid Bootstrap/admin-template styling, equal card grids, cramped dashboards, pure-white-on-pure-white surfaces, raw white default surfaces, low-contrast blending, same-white navigation and content surfaces, card boxes around every group, elevation tokens that only appear in the design strip, large white hero cards with obvious shadows, misaligned structured components, old-school drop shadows, harsh borders, generic blue-gray dashboard defaults, and the standard sidebar/KPI/table admin composition.
+A premium modern SaaS interface inspired by soft editorial dashboard references: a visibly tinted pale background, lighter cool off-white/porcelain content canvas instead of raw white, brighter cool-white focal surfaces, subtly tinted navigation chrome when navigation exists, a large rounded app frame, de-carded active-object hero area, generous whitespace, broad gutters, large panel padding, pill controls, selective low-contrast borders, selective Tailwind `shadow-xs`/tighter faded `shadow-sm` elevation used in the actual UI for navigation, selected records, important notices/cards, mobile nav affordances, floating controls, popovers, or one important focal surface, one strong accent color chosen from an appropriate varied palette rather than default blue, expressive metric typography, asymmetric open layout, background bands and open sections instead of boxing every group, a few rich rows instead of dense tables, and a designed mobile companion view. Avoid Bootstrap/admin-template styling, equal card grids, cramped dashboards, pure-white-on-pure-white surfaces, raw white default surfaces, low-contrast blending, same-white navigation and content surfaces, card boxes around every group, elevation tokens that only appear in the design strip, large white hero cards with obvious shadows, old-school top-bar shadows, misaligned structured components, old-school drop shadows, harsh borders, generic blue-gray dashboard defaults, unnecessary sidebars, and the standard sidebar/KPI/table admin composition.
 ```
 
 For the dark companion board generated after light approval, include:

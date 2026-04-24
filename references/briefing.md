@@ -2,6 +2,8 @@
 
 Use this reference before generating the first design board. The goal is to gather enough product and visual context to create a mock that can become an implementation source.
 
+For a fresh agent, this brief is the bridge between user intent and the image prompt. Do not depend on remembered context alone. Capture the brief, then combine it with the local skill rules and visual references when writing the GPT Image prompt.
+
 ## Minimum Brief
 
 Capture these details:
@@ -38,7 +40,7 @@ I will assume this is a desktop-first operational SaaS UI, with a responsive mob
 If the user does not specify a strong style, add this assumption:
 
 ```text
-I will use the skill's default premium minimal light-mode visual reference style first: visibly tinted pale background, lighter cool off-white/porcelain content canvas instead of raw white, brighter focal surfaces, subtly tinted navigation chrome when navigation exists, a large rounded app frame, app-appropriate active-object workspace, generous whitespace, broad gutters, large panel padding, pill controls, selective light borders, modern `shadow-xs`/tighter faded `shadow-sm` style elevation used on real UI states, expressive but not marketing-scale typography, asymmetric open composition, and one or two strong accents. I will keep it operational as an app UI, not a website hero, and avoid generic Bootstrap/admin-dashboard styling, cramped information-dense layouts, secondary modules shown just because they exist, boxing everything as cards, same-white or overly contrasty navigation/content surfaces, old-school drop shadows, dock-only elevation tokens, and visibly inconsistent generated UI details. After the light board is approved or approval is waived, I will generate a matching dark-mode companion board for implementation tokens.
+I will use the skill's default premium minimal light-mode visual reference style first: visibly tinted pale background, lighter cool off-white/porcelain content canvas instead of raw white, brighter focal surfaces, subtly tinted navigation chrome when navigation exists, a large rounded app frame, app-appropriate active-object workspace, generous whitespace, broad gutters, large panel padding, pill controls, selective light borders, modern `shadow-xs`/tighter faded `shadow-sm` style elevation used on real UI states, expressive but not marketing-scale typography, asymmetric open composition, and one or two strong accents chosen from a varied palette rather than default blue. I will choose the navigation model that fits the product instead of defaulting to a sidebar. I will keep it operational as an app UI, not a website hero, and avoid generic Bootstrap/admin-dashboard styling, cramped information-dense layouts, secondary modules shown just because they exist, boxing everything as cards, same-white or overly contrasty navigation/content surfaces, old-school drop shadows, heavy top-bar shadows, dock-only elevation tokens, blue-by-default palettes, and visibly inconsistent generated UI details. After the light board is approved or approval is waived, I will generate a matching dark-mode companion board for implementation tokens.
 ```
 
 ## Brief To Prompt Conversion
@@ -53,6 +55,7 @@ Turn the brief into concrete visual instructions:
 - Convert "editorial" into distinctive type hierarchy and composition while preserving app controls and workflows; do not turn app screens into marketing pages.
 - Convert "enterprise" into dense but readable tables, clear navigation, status chips, filters, and predictable hierarchy.
 - Convert "creative" into stronger imagery, custom composition, bolder type, and more expressive but still usable UI.
+- Build the final image prompt from three inputs together: the user brief, the common anti-generic and quality rules from this skill, and the chosen style source (default visual references or the user's explicit style).
 
 ## Style Selection
 

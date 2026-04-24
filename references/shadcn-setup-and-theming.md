@@ -79,6 +79,8 @@ Light-mode contrast matters. Do not use the same white for the page background, 
 - Focal surfaces/cards: brighter cool white/off-white, with raw white reserved only for tiny highlights if needed.
 - Navigation chrome: distinct enough to anchor sidebars, rails, top bars, tabs, command bars, and filter bars when present.
 - Navigation surface: use a dedicated sidebar/topbar/nav token that is slightly darker, cooler, or more tinted than the app canvas; do not reuse the same near-white surface everywhere, but also avoid a saturated or overly contrasty nav slab.
+- Navigation model: do not assume sidebar tokens will always be used. Some apps should map their nav surfaces to top bars, tab bars, segmented headers, or bottom navigation instead.
+- Accent choice: do not default the primary token to blue. Choose the accent family from the approved mock or user palette, and build related tones around it coherently.
 - Flat sections: no card shell when spacing and typography are enough.
 - Borders: selective and low-contrast, not around everything.
 - Shadows/elevation: use Tailwind `shadow-xs` or a custom tighter/faded `shadow-sm` style elevation selectively; avoid `shadow-md`, `shadow-lg`, and larger shadows as default card styling.
