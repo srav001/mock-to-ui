@@ -2,6 +2,8 @@
 
 Use this checklist on every generated mock before showing it to the user or accepting it as a keeper. It converts the eight reference images into concrete verification items, so review the mock against the references directly rather than judging from prompt compliance alone.
 
+This checklist is the enforcement layer for the calling agent, not a capability assumption about the image model. The model may miss or only partially obey some rules even when prompted correctly. The agent must therefore use this checklist as a hard gate after generation rather than assuming prompt compliance.
+
 ## Required Comparison Method
 
 1. Load all eight temporary reference images into context before judging the new mock.
@@ -10,6 +12,8 @@ Use this checklist on every generated mock before showing it to the user or acce
 4. Mark each item `pass`, `fail`, or `n/a`.
 5. If any critical item fails, reject the mock immediately.
 6. Only treat a mock as acceptable when every critical item passes and at least 44 of 50 items pass.
+
+In delivery mode, record that result in `design/mock-review.md`. If the board is close but fails, create `design/mock-revision-notes.md` before the next correction pass so the failed items are carried into the next prompt explicitly.
 
 Critical items are marked with `CRITICAL`.
 
@@ -118,3 +122,5 @@ A mock can be structurally correct and still fail the quality bar if several of 
 - If the mock passes fewer than 44 items, reject it and regenerate.
 - If one category repeatedly fails across fresh prompts, strengthen the reusable skill guidance for that category before generating again.
 - If a prompt-specific output fails but the reusable guidance is already clear, create a new fresh prompt for the next validation run instead of patching the failed prompt repeatedly.
+- In actual project delivery, if the board is close but fails on a few named items, run a targeted iterative correction pass against that specific mock and then score the revised result again with this same checklist before approving it.
+- In actual project delivery, do not approve or promote a board to `design/` without a written review showing the score, the critical-item result, and the explicit pass/fail call.

@@ -2,6 +2,13 @@
 
 Use this reference during implementation and final verification. The purpose is to compare the working React app against the approved GPT Image design board, not merely to prove that the page loads.
 
+This QA loop is not complete until the implementation is a near one-to-one reproduction of the approved mock. Treat visual drift as a failure condition. Expect repeated screenshot, compare, fix, and rerun passes. Five to ten passes is normal; many more are acceptable when needed.
+
+This is not optional polish. This is the main enforcement mechanism for the skill. If Playwright comparison still reveals visible drift or fake/static control behavior, the build is not done.
+
+Use `design/implementation-review.md` and `design/implementation-open-gaps.md` as the written memory for this loop. Do not keep the remaining mismatch list only in your head.
+Do not allow those files to become vague signoff theater. They should contain screenshot-backed evidence, concrete mismatches, and concrete next fixes.
+
 ## Core Workflow
 
 1. Create a QA inventory before testing.
@@ -20,32 +27,64 @@ Use this reference during implementation and final verification. The purpose is 
    - Interaction state.
    - Final desktop.
    - Final mobile.
+   - Focused screenshots for:
+     - navigation chrome
+     - header/context
+     - dominant workflow surface
+     - support modules
+     - mobile above-the-fold
+   - Additional focused region screenshots whenever a local area still has visible drift.
 5. Compare screenshots against the approved mock.
    - Inspect the screenshot visually.
    - Fix visible drift before continuing.
    - Do not accept a functional pass as visual proof.
+   - Repeat the loop until the user should not be able to tell the implementation from the mock in ordinary comparison.
+   - Treat every ordinary visible mismatch as a blocker that keeps the loop open.
+   - Inspect the page section by section, not only as a full-page mood check.
+   - Update `design/implementation-open-gaps.md` after each pass before coding the next fix.
+   - Update `design/implementation-review.md` with screenshot-backed region notes after each pass.
 6. Perform scale calibration after the first desktop and mobile screenshots.
    - Compare key dimensions and density against the approved mock.
    - Make a deliberate scale/polish pass before final signoff unless the match is already extremely tight.
-7. Run final responsive QA.
+7. Exercise real interactions, not frozen mock states.
+   - If the mock shows an open select, menu, popover, tooltip, sheet, dialog, accordion, or tab state, reproduce that with the actual interactive component and capture the screenshot in that state.
+   - Do not hardcode an always-open fake control just to mimic the image.
+8. Run final responsive QA.
    - Capture desktop and mobile screenshots.
    - Check viewport fit, clipping, overflow, layering, contrast, and readable density.
+9. Run an adversarial final pass after the UI seems done.
+   - Assume the implementation is still wrong.
+   - Try to find at least five visible differences.
+   - Either record and fix them, or explain specifically why each suspected difference is not a blocking mismatch.
+
+This loop should stay open until the open-gaps file is empty or contains only explicitly tolerated hard-illustration exceptions.
 
 ## Screenshot Naming
 
-Save screenshots in the project, usually under `mock/verification/`:
+Save screenshots in the project, usually under `mocks/verification/`:
 
 ```text
-mock/approved-design-board.png
-mock/verification/01-theme-desktop.png
-mock/verification/02-shell-desktop.png
-mock/verification/03-main-content-desktop.png
-mock/verification/04-interaction-desktop.png
-mock/verification/final-desktop.png
-mock/verification/final-mobile.png
+mocks/approved-design-board.png
+mocks/verification/01-theme-desktop.png
+mocks/verification/02-shell-desktop.png
+mocks/verification/03-main-content-desktop.png
+mocks/verification/04-interaction-desktop.png
+mocks/verification/05-focused-region-a.png
+mocks/verification/final-desktop.png
+mocks/verification/final-mobile.png
 ```
 
 Remove stale failed screenshots or keep them clearly separated from final evidence.
+
+Focused region screenshots should use predictable names when practical:
+
+```text
+mocks/verification/06-nav-region.png
+mocks/verification/07-header-region.png
+mocks/verification/08-main-surface-region.png
+mocks/verification/09-support-region.png
+mocks/verification/10-mobile-above-fold.png
+```
 
 ## Desktop Script
 
@@ -64,7 +103,7 @@ const page = await context.newPage();
 try {
   await page.goto(TARGET_URL, { waitUntil: "networkidle" });
   await page.screenshot({
-    path: "mock/verification/final-desktop.png",
+    path: "mocks/verification/final-desktop.png",
     type: "png",
   });
 
@@ -110,7 +149,7 @@ const page = await context.newPage();
 try {
   await page.goto(TARGET_URL, { waitUntil: "networkidle" });
   await page.screenshot({
-    path: "mock/verification/final-mobile.png",
+    path: "mocks/verification/final-mobile.png",
     type: "png",
   });
 } finally {
@@ -130,10 +169,37 @@ Compare the Playwright screenshot to the approved mock for:
 - Data density: similar number of visible rows, cards, filters, and metrics.
 - Navigation: sidebar/header/mobile nav match the mock's structure.
 - Component states: selected, hover, active tab, dialog/sheet, empty/loading/error, warning/success/destructive.
+- Interaction fidelity: visible open or active controls in the mock are reproduced through real component state, not static markup.
 - Mobile: same content priority, stacking, spacing, and navigation pattern.
 - Scale calibration: sidebar width, header height, KPI card height, table row height, right-panel width, mobile density, and bottom-nav height match the mock.
 
+Scrutinize these regions separately:
+
+- Header/context area: title, subtitle, utility controls, chips, spacing, and alignment.
+- Navigation chrome: rail/sidebar tint, active state treatment, icon sizing, row height, profile area, bottom nav.
+- Main workflow surface: overall geometry, proportions, attached actions, inline metrics, separators, and emphasis.
+- Supporting modules: weight, openness, padding, and whether they are too cardy or too heavy.
+- Mobile viewport: what appears above the fold, density, stacking, and action prominence.
+
+Give strict scrutiny to all ordinary UI areas. Controls, chips, spacing, borders, navigation, content structure, and layout proportions should be extremely close everywhere on the screen. Allow relatively more tolerance only for truly bespoke illustration regions such as custom anatomy/body graphics, and even then preserve their compositional role.
+
 If a mismatch is visible, fix it. Do not call it complete because the implementation is "close."
+
+Do not let phrases like `close enough`, `broadly aligned`, `approved direction`, `ordinary review`, or `feels right overall` replace screenshot-backed mismatch review.
+
+## Mismatch Ledger Discipline
+
+`design/implementation-open-gaps.md` should behave like a real ledger, not a motivational note. Each unresolved item should include:
+
+- region
+- approved mock reference
+- current screenshot reference
+- visible mismatch
+- severity
+- next fix
+- resolved status
+
+The first real comparison pass should not declare the ledger empty. If you think the first pass has no ordinary mismatch, you must still run the adversarial pass before claiming that.
 
 ## Scale Calibration Pass
 
@@ -146,7 +212,7 @@ After the first desktop and mobile screenshots, inspect scale before doing final
 - Detail panel: width, card spacing, section density, bottom action bar.
 - Mobile: top bar height, tab height, KPI card density, quote row height, selected quote summary, bottom nav.
 
-Make at least one deliberate correction when the implementation is visibly looser, denser, wider, narrower, taller, or shorter than the mock. If no correction is made, state why the screenshots already match tightly.
+Make repeated deliberate corrections when the implementation is visibly looser, denser, wider, narrower, taller, or shorter than the mock. Keep iterating until that drift is gone or until a concrete implementation constraint is identified and recorded.
 
 ## Visual QA Rules
 
@@ -154,11 +220,16 @@ Make at least one deliberate correction when the implementation is visibly loose
 - Inspect the initial viewport before scrolling.
 - Inspect the densest realistic state, not only the empty or default state.
 - Use viewport screenshots for signoff. Use full-page screenshots only as secondary debugging artifacts.
+- Use additional cropped or region-focused screenshots whenever a mismatch is easier to judge locally than at full viewport scale.
+- Use additional cropped or region-focused screenshots for each major area when needed, because small mismatches are easy to miss in a full viewport.
 - Look for clipping, overflow, weak contrast, blurry or tiny text, broken alignment, inconsistent spacing, awkward shadows, incorrect border strength, and layering bugs.
 - Check fixed shells and internal scroll containers with screenshots and region bounds; document-level scroll metrics are not enough.
 - If motion or transitions matter, inspect a settled state and at least one meaningful in-transition or post-transition state.
 - Ask before signoff: what visible part of the UI has not been inspected closely?
 - Ask before signoff: what visible defect would be obvious to the user if they compared this with the mock?
+- Ask before signoff: if the user overlaid these two images, what would still reveal that this is not one-to-one?
+- Ask before signoff: am I giving a pass because the page feels close overall even though one section is still clearly wrong?
+- Ask before signoff: which exact screenshot proves that this region is finished?
 
 ## Functional QA
 
@@ -167,6 +238,7 @@ For mocked apps, functional QA still matters:
 - Click main navigation items.
 - Exercise tabs, filters, menus, dialogs, sheets, and mobile nav.
 - Verify selected states and labels update.
+- Exercise any visible open control state shown in the approved mock so the screenshot captures a real state transition.
 - Check keyboard focus for primary controls when practical.
 - Confirm no console errors appear during the main flow.
 
@@ -223,7 +295,12 @@ Before final response, confirm:
 - The app builds or passes the available project checks.
 - Desktop screenshot was captured and reviewed against the approved mock.
 - Mobile screenshot was captured and reviewed against the approved mock.
+- Focused region screenshots were captured and reviewed against the approved mock.
 - A scale-calibration pass was completed after the first screenshots.
 - At least one interaction state was captured or manually inspected when interactions exist.
-- The UI matches the approved mock closely enough that visible differences are not obvious or accidental.
+- An adversarial final pass was completed and documented.
+- Multiple screenshot-fix passes were completed until the UI was visually indistinguishable from the approved mock in ordinary comparison.
+- The UI matches the approved mock so closely that visible differences are not obvious or accidental.
 - Any deliberate deviation from the mock is named and justified.
+
+If you cannot honestly say those things, do not sign off. Keep iterating.

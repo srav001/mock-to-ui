@@ -2,6 +2,18 @@
 
 Use this reference when generating or revising the visual mock. The current OpenAI image model for this workflow is `gpt-image-2`.
 
+Treat the image model as a strong renderer with limited governance reliability. Do not assume it will faithfully obey a long rulebook just because the rules were included somewhere in the prompt. The calling agent must choose the right constraints, phrase them concretely, foreground the critical ones, and then strictly validate the output afterward.
+
+The operating loop for this phase is:
+
+1. prompt
+2. render
+3. score against `references/mock-comparison-checklist.md`
+4. reject or approve in writing
+5. revise and re-score if needed
+
+Do not collapse that loop into one optimistic generation pass.
+
 ## API Choice
 
 Use the Image API when generating or editing one mock from one prompt:
@@ -96,6 +108,8 @@ Implementation starts only after:
 
 Always include a concise design-thinking and anti-generic section in the prompt. Then include either the default premium minimal style reference or the user's explicit style direction.
 
+Put the highest-risk failure modes near the top of the final prompt in direct language. In practice, the image model follows a concentrated list of critical compositional rules more reliably than a long diffuse prompt where the key restrictions are buried.
+
 Style selection:
 
 - No strict user style: use the written guidance in `references/visual-style-references.md` as the default style language.
@@ -128,6 +142,7 @@ Before judging any generated mock:
 3. Reject the mock immediately if any critical checklist item fails.
 4. Reject the mock if it passes fewer than 44 of the 50 checklist items.
 5. If the same failure repeats across fresh prompts, tighten the reusable skill guidance before generating again.
+6. If this is project delivery rather than reusable-skill validation, and the board is close but fails on a few named issues, prefer an iterative correction pass against that specific mock before discarding the structure entirely.
 
 Style Direction:
 <default premium minimal light-mode reference style unless the user gave a strict different style>
@@ -169,6 +184,34 @@ Preserve:
 
 Small changes are easier to control than overloaded revisions. If the user lists many changes, group them into one coherent revision but keep the preserve list explicit.
 
+Revision prompting is especially important because the image model may miss some rules on the first pass even when the prompt was correct. The calling agent should not mistake a near miss for an acceptable board, and should not assume the first render is the best test of the written guidance when the task is actual delivery rather than skill benchmarking.
+
+In delivery mode, every failed-but-close board should produce `design/mock-revision-notes.md` before the next correction pass. That file should name:
+
+- what to preserve
+- what to fix
+- which checklist items failed
+- what must not change
+
+In validation mode, repeated prompt-only failures should usually lead to a fresh prompt or a reusable-doc update rather than endless patching of one failed prompt.
+
+When revising an existing mock:
+
+1. Keep the successful parts stable.
+2. Name the failed parts explicitly.
+3. Ask for concrete visual changes, not vague "make it better" language.
+4. Preserve the layout, palette, or object that is already working unless that is the thing being changed.
+5. Reference the exact failed checklist items or exact composition faults from `references/mock-comparison-checklist.md` whenever possible, so the revision request is tied to the quality gate rather than vague taste language.
+
+## Approval Discipline
+
+For delivery work, every generated board must result in a written review artifact before approval:
+
+- `design/mock-review.md` for the current score and pass/fail call
+- `design/mock-revision-notes.md` when the board is being corrected in place
+
+Do not move a board into `design/` and do not treat it as approved unless the written review shows that every critical checklist item passed and the total score is at least `44/50`.
+
 ## Inspecting Generated Mocks
 
 Before asking for approval, inspect the image yourself:
@@ -198,6 +241,14 @@ Before asking for approval, inspect the image yourself:
 - Are there contradictions, impossible visual effects, or illegible core content?
 
 If the mock is clearly unusable, regenerate once before showing it to the user.
+
+For project delivery work, a good operating sequence is:
+
+1. generate a first board from a fresh prompt
+2. score it strictly against `references/mock-comparison-checklist.md`
+3. if it is far off, regenerate with a stronger prompt
+4. if it is close but fails on specific issues, run an iterative correction pass against that same board
+5. re-score the revised board strictly before treating it as approved
 
 ## Validation Testing
 

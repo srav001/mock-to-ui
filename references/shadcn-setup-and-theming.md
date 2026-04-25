@@ -2,15 +2,27 @@
 
 Use this reference while creating and theming the React project.
 
+Shadcn/ui and Tailwind are accelerators, not fidelity limits. If they are not enough to reproduce the approved mock one-to-one, extend them with custom CSS and component overrides rather than accepting drift.
+
 ## Scaffold
 
 Prefer a fresh Vite React TypeScript shadcn/ui project unless the user requests another framework. Before running scaffold commands, confirm the target path.
+
+The intended app root should become the real scaffold location. Do not create a temporary Vite/shadcn app somewhere else and then copy it into the target folder just because the target is non-empty. If the target folder is meant to be the app, make it empty enough first and scaffold there directly.
 
 Current shadcn documentation recommends the latest CLI flow for Vite, such as:
 
 ```bash
 npx shadcn@latest init -t vite --name <app-name>
 ```
+
+When available, prefer this fuller CLI flow for this skill:
+
+```bash
+npx shadcn@latest init --preset b0 --template vite --pointer
+```
+
+That flow creates the Vite app through the shadcn CLI and then asks for the project name interactively in the terminal. Provide the intended project name when prompted.
 
 or the package-manager equivalent:
 
@@ -23,6 +35,20 @@ Do not use `npm dlx`; not every npm version supports it. Use `npx` for npm-based
 
 Because shadcn CLI behavior changes over time, check command output and generated files before proceeding. If the CLI offers choices, choose React, TypeScript, Tailwind, CSS variables, and the app structure that best supports shadcn components.
 
+Install `lucide-react` as part of the initial setup. The implementation phase assumes a consistent icon library is available for navigation, status, controls, and lightweight UI ornament, and `lucide-react` is the default icon set for this skill.
+
+```bash
+npm install lucide-react
+```
+
+or the package-manager equivalent:
+
+```bash
+pnpm add lucide-react
+bun add lucide-react
+yarn add lucide-react
+```
+
 If the CLI prompts for setup choices, use these defaults unless the user or existing project says otherwise:
 
 - Monorepo: no.
@@ -33,6 +59,17 @@ If the CLI prompts for setup choices, use these defaults unless the user or exis
 - Tailwind and CSS variables: yes.
 
 Prefer non-interactive flags when they work. If the CLI still prompts, use a TTY and answer deliberately; do not abandon scaffolding because the first command was interactive.
+
+Recommended early order for a brand-new project:
+
+1. confirm the target path
+2. create the child folder first if needed
+3. scaffold the actual Vite/shadcn app directly in that location
+4. install `lucide-react`, `openai`, and `playwright`
+5. create `mocks/`
+6. copy or create `.env` / `.env.example`
+7. copy `scripts/generate-design-mock.mjs`
+8. only then start mock generation for that project
 
 ## Components
 
@@ -114,6 +151,8 @@ Use the theme variables for common elements. Use Tailwind classes for app-specif
 
 Avoid fighting shadcn defaults one component at a time when a theme variable would solve the issue globally. Conversely, do not overgeneralize a one-off visual detail into the global theme.
 
+Tailwind is not the ceiling. If utility classes are not enough to match the approved mock precisely, add custom CSS classes and component-level styles using values derived from `design/spec.json`. The implementation goal is one-to-one visual fidelity, not purity of Tailwind usage.
+
 ## Files To Inspect
 
 After scaffolding, inspect the generated project before editing:
@@ -144,6 +183,37 @@ If this happens, do not rewrite shadcn components just to satisfy Fast Refresh. 
 ```
 
 Keep the exception narrow. Do not disable lint broadly for the app code.
+
+## Design Artifact Structure
+
+Inside a real project workspace, keep design assets organized so later iterations and implementation can reuse them cleanly:
+
+- `mocks/`: active generated candidates, exploratory variants, and rejected iterations.
+- `design/`: approved boards and design-memory files.
+
+Before generating or implementing, check whether `design/` already exists. If it does, inspect `design/spec.json` and `design/history.md` first.
+
+Once a mock is approved:
+
+- Move the approved board out of `mocks/` and into `design/`.
+- Create or update `design/spec.json`.
+- Create or update `design/history.md`.
+
+`design/spec.json` should stay implementation-oriented and use three main sections:
+
+```json
+{
+  "common": {},
+  "light": {},
+  "dark": {}
+}
+```
+
+Use `common` for shared items such as radius system, typography, border treatment, shadow/contact tokens, spacing notes, and any other cross-mode decisions. Use `light` and `dark` for the approved mode-specific color and surface tokens.
+
+The board dock is the primary source, but it may not always be perfectly legible. Extract what is explicit and infer only what is visually well-supported by the approved board. This file should help later CSS variable and Tailwind theming work, not become a vague design essay.
+
+`design/history.md` should record why a design change was made, not just what changed. Keep entries concise so future agents can understand the user's design intent quickly before making further revisions.
 
 ## Mock Data
 
