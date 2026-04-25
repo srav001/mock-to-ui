@@ -1,125 +1,120 @@
 # Mock Comparison Checklist
 
-Use this checklist on every generated mock before showing it to the user or accepting it as a keeper.
+Use this checklist on every generated mock before showing it to the user or accepting it as a keeper. It converts the eight reference images into concrete verification items, so review the mock against the references directly rather than judging from prompt compliance alone.
 
 ## Required Comparison Method
 
 1. Load all eight temporary reference images into context before judging the new mock.
-2. Compare the new mock directly against the reference set, not only against the prompt text.
-3. Mark each item `pass`, `fail`, or `n/a`.
-4. If any critical item fails, reject the mock immediately.
-5. Only treat a mock as acceptable when:
-   - every critical item passes, and
-   - at least 44 of 50 items pass.
+2. Compare the new mock directly against the reference set and `visual-style-references.md`.
+3. Explicitly review the reference polish signals in `visual-style-references.md`: surface hierarchy, restrained accent use, typography contrast, quiet nav chrome, calm radius/control language, quiet borders/contact-edge lift, one dominant visual idea, breathing room, curated data expression, and micro-precision.
+4. Mark each item `pass`, `fail`, or `n/a`.
+5. If any critical item fails, reject the mock immediately.
+6. Only treat a mock as acceptable when every critical item passes and at least 44 of 50 items pass.
 
 Critical items are marked with `CRITICAL`.
 
+## Reference Polish Lens
+
+Before scoring the 50 items, make an explicit judgment on these reference-derived polish signals:
+
+1. Surface hierarchy: outer stage, app canvas, navigation chrome, and focal surfaces separate clearly.
+2. Accent restraint: color is selective and purposeful rather than spread across many unrelated modules.
+3. Typography authority: display or numeric anchors clearly outrank utility text.
+4. Nav chrome tone: sidebars/top bars feel like quiet product chrome, not blank same-white filler or heavy slabs.
+5. Shape calmness: radius, pills, and control families feel consistent and deliberate.
+6. Shadow/border discipline: separation comes from tone, spacing, and contact-edge lift rather than fluffy drop shadows or dark outlines.
+7. Dominant visual idea: the screen has one memorable operational object instead of many equal cards.
+8. Breathing room: the composition leaves real quiet areas and generous padding.
+9. Curated operational content: records, actions, metrics, filters, and any charts feel edited into the composition rather than dumped as raw UI inventory.
+10. Micro-precision: geometry, alignment, icons, chips, and internal spacing hold up in close crops.
+
+A mock can be structurally correct and still fail the quality bar if several of these polish signals are weak.
+
 ## 50-Point Checklist
 
-### A. First Impression
+### A. Reference Closeness And App Identity
 
-1. `CRITICAL` The screen reads as premium product UI, not Bootstrap, default shadcn, or a generic admin template.
-2. The first glance reveals one clear active object or main workspace, not a wall of equal modules.
-3. `CRITICAL` The composition feels airy, with enough visible negative space around the primary content.
-4. `CRITICAL` The screen feels like an app workspace, not a website hero, landing page, poster, or marketing concept with scenic/decorative background art.
-5. `CRITICAL` At thumbnail scale, the outer stage, app canvas, and focal surfaces separate clearly.
+1. `CRITICAL` The mock reads as premium product UI at first glance, not Bootstrap, default shadcn, or a generic admin template.
+2. `CRITICAL` The screen remains an operational app workspace with controls, records, states, and actions, not a website hero, landing page, poster, decorative concept, or sparse marketing-style composition. Business/enterprise domain is not an excuse for old enterprise admin styling, and decorative garnish such as leaf shadows, branch silhouettes, or ambient lifestyle art should not appear behind the workspace.
+3. The board has a designed-object feeling: a clear app frame, stage, silhouette, or authored product boundary rather than a normal browser page of boxes.
+4. `CRITICAL` At thumbnail scale, the outer stage, app canvas, navigation chrome, focal surfaces, and selected states separate clearly; the mock does not collapse into one flat white or one flat dark plane.
+5. The overall result is meaningfully close to the reference set in composition quality, restraint, hierarchy, polish, and single-idea clarity, not merely clean or tidy.
 
-### B. Layout And Composition
+### B. Active Workspace And Composition
 
-6. The screen does not fall back into the standard layout of nav + title + fact strip + a few cards + bottom actions unless that structure has been clearly transformed into something more designed.
-7. The composition has some openness, asymmetry, layering, or deliberate structural rhythm instead of a plain rectangular stack.
-8. `CRITICAL` The first screen focuses on one immediate task instead of trying to show the whole product or several parallel decisions at once.
-9. Secondary modules have been pushed behind tabs, scroll, drawers, or secondary pages when they are not needed now. The screen should err on omission rather than completeness.
-10. `CRITICAL` No local cluster feels cramped: side modules, steppers, bands, bottom actions, and mobile blocks all have breathing room.
+6. `CRITICAL` One active object or current decision dominates the first screen.
+7. The active object is visually memorable, operational, and buildable: selected record, route, report, account, readiness band, timeline, thread, product stack, or equivalent product-shaped structure with usable facts and direct actions, composed from realistic app primitives rather than bespoke illustration. A single graph/route/diagram without controls, state, or next-step action fails. A giant hero ring, donut, gauge, or wellness meter also fails when it becomes the main answer. One elegant object plus one lonely CTA is still too thin; the hero should usually provide at least one scoped control, filter, or mode switch and one attached action cluster, adjustment, or decision parameter.
+8. The layout does not fall back to header plus filters plus KPI strip plus card grid plus table unless that skeleton has been visibly transformed.
+9. The composition uses openness, asymmetry, layering, selected lanes, bands, or embedded zones instead of an equal rectangular stack, three equal cards, a process grid, a vertical row list, a plain list/table with helper cards beside it, or one large wrapper that still contains several ordinary modules.
+10. `CRITICAL` The first screen focuses on one immediate task and does not try to show the whole product.
 
-### C. Navigation And Chrome
+### C. Progressive Disclosure And Density
 
-11. `CRITICAL` The navigation model fits the app type instead of being chosen by habit.
-12. `CRITICAL` Navigation chrome is visibly distinct from the main canvas when navigation exists.
-13. The navigation contrast is balanced: slightly stronger than the main canvas so nav anchors the UI at thumbnail scale, but not so heavy that nav dominates the page.
-14. Active nav, active tab, or active control states are obvious at a glance.
-15. Mobile navigation affordances use the same surface logic and elevation language as desktop when present.
+11. Secondary modules are omitted, collapsed, placed behind tabs, moved below the fold, or routed to drawers/pages when they are not needed for the current decision.
+12. Empty space and quiet bands are preserved as part of the design rather than filled with extra widgets; the screen leaves real calm areas and does not treat every open region as capacity to fill.
+13. `CRITICAL` No local cluster feels cramped: routes, steppers, side modules, bottom actions, analysis areas, and mobile blocks have breathing room.
+14. The screen avoids long metadata rails, repeated icon-label-value columns, and detached fact strips under the title.
+15. Supporting content is quieter than the active object and does not compete for equal visual weight; top metric/KPI strips, soft multi-column fact bars, internally sectioned mega-panels, a generic lower admin section of table-plus-summary-plus-form, a row/grid of equal-weight driver cards under the hero, or a wide bottom decision/approval tray do not carry the main decision. The first screen should not be blanketed in card shells; one or two emphasis cards at most is the target. For business/enterprise operational apps, the first screen should usually resolve as an open context/header zone plus one dominant working section rather than a dashboard stack of summary cards and helper modules. A row-based working section also fails if each row becomes its own rounded card, boxed sidecar pair, a fixed repeated multi-column strip, or a giant enclosing shell that could be more open on the canvas.
 
-### D. Surfaces, Cards, And Borders
+### D. Surface System, Cards, And Borders
 
-16. `CRITICAL` The desktop outer tinted stage remains visible and does not disappear into a flat white page.
-17. `CRITICAL` The main app canvas uses cool off-white, porcelain, or similarly refined surfaces instead of raw white.
-18. Focal surfaces are brighter or more intentional than surrounding panels, and they do not become overstuffed mini-pages.
-19. `CRITICAL` The layout does not solve the screen as a set of large neighboring full-card shells. At least one major region should feel open, banded, embedded, or only partially bounded instead of fully boxed.
-20. Borders are low-contrast and selective rather than heavy or everywhere.
+16. `CRITICAL` The desktop outer stage remains visibly tinted or darker than the app canvas.
+17. `CRITICAL` The main app canvas uses refined off-white, porcelain, glacier, stone, graphite, charcoal, or equivalent surfaces instead of raw default white or flat gray.
+18. Focal surfaces are subtly brighter, cleaner, tinted, or more intentional than surrounding canvas areas; they do not use the same raw white as every other region.
+19. `CRITICAL` Not every group is boxed. At least one major region is open, banded, embedded, or only partially bounded.
+20. Borders are quiet, low-contrast, and selective; structure comes mainly from spacing, tone, grouping, and hierarchy rather than a heavy admin-card grid or dark colored outline system.
 
-### E. Shadows And Elevation
+### E. Navigation And Product Chrome
 
-21. `CRITICAL` Elevation is visible in the real UI, not only in the design dock.
-22. Lift is applied on meaningful states such as nav chrome, a selected record, an important decision card, a floating control, or mobile controls, and those lifted states stay compact and purposeful.
-23. Shadows stay tight, close to the surface, and low-opacity.
-24. `CRITICAL` Shadow fades are smooth. No shadow ends as a sharp gray band, hard ring, or abrupt cutoff.
-25. No element uses a noticeably heavier or more abrupt shadow than sibling surfaces unless it is intentionally the main focal lift.
+21. `CRITICAL` The navigation model fits the product workflow instead of defaulting to a sidebar. If lightweight left navigation is enough, a slim rail or a narrow quiet sidebar is usually better than a fuller labeled sidebar.
+22. Navigation chrome is tonally distinct from the main canvas when present; top bars and sidebars should stay slightly darker or more tinted than the workspace, ideally through soft graphite, stone, or a muted primary-derived tint rather than same-white chrome, but a default light-mode sidebar is not a heavy charcoal/black slab unless explicitly requested. If the nav is technically different but still reads same-white at thumbnail scale, fail it. A barely warmer or barely darker rail is still a fail if the chrome does not visibly anchor the workspace.
+23. Active nav, tabs, segmented controls, command buttons, and selected controls are obvious at a glance.
+24. Command/search/filter surfaces feel spacious, grouped, and intentional rather than a cramped toolbar row; the nav and command layer should feel authored, not like utility text floating on blank white.
+25. `CRITICAL` If a sidebar is present, the main workspace still avoids generic enterprise/admin composition and keeps a spacious, modern, domain-object-led layout. The sidebar must not be followed by a default title/filter/KPI/table/card canvas, and the main content should still look as strong as a comparable no-sidebar app in the same batch.
 
-### F. Typography And Text Rhythm
+### F. Color And Theme Discipline
 
-26. Headings are app-scale and expressive, not oversized website display type.
-27. Typography hierarchy is readable at a glance, including labels, metrics, and actions.
-28. `CRITICAL` Key facts are not rendered as a long repetitive metadata rail or detached KPI strip.
-29. No text is clipped, overcrowded, or forced into tiny areas.
-30. The copy structure helps the workflow: the user can tell what matters now, what the issue is, and what action comes next without reading through long support copy inside cards.
+26. `CRITICAL` The palette does not fall back to default blue primary and blue-tinted navigation unless the brief asks for blue.
+27. Accent color is selective and purposeful: active state, route node, selected record, primary action, badge, short rule, or one compact analytical highlight.
+28. Status colors are softened and systemized, not saturated badge spam or validation-style full-card outlines.
+29. Neutral, accent, status, border, and surface colors feel like one coherent, restrained design system rather than many unrelated highlight colors.
+30. The UI avoids same-white blending and also avoids becoming a one-note palette with no focal contrast.
 
-### G. Color And Theme System
+### G. Typography And Text Rhythm
 
-31. `CRITICAL` The palette does not fall back to default blue primary and blue-tinted nav unless the brief actually asks for blue.
-32. Accent, status, and neutral colors feel coherent as one system.
-33. The outer stage, app canvas, nav chrome, focal surfaces, and controls have distinct tonal roles.
-34. Key actions and status states have enough contrast to read clearly.
-35. The UI does not collapse into same-white or too-near-white blending between page and surfaces.
+31. Display type, numeric anchors, labels, captions, status text, and actions have clear role-based hierarchy.
+32. Metrics or key facts are treated as visual anchors when present, not small values in a repetitive grid.
+33. Headings are expressive but app-scale; they do not overwhelm controls or turn the screen into a marketing hero.
+34. Utility labels are lighter and smaller without becoming illegible.
+35. No important text is clipped, overcrowded, randomly tiny, or forced into too-small UI areas.
 
-### H. Product-Specific Structured Object
+### H. Product-Specific Data Objects
 
-36. `CRITICAL` The screen contains at least one domain-specific structured object richer than a generic card or chart.
-37. That object feels designed for the product, not like a stock chart, placeholder graph, or default widget.
-38. Records, rows, or lanes feel transformed and curated instead of looking like a table.
-39. Connector lines, steppers, route bands, and timelines align cleanly.
-40. The main action cluster is clearly tied to the active object and current decision.
+36. `CRITICAL` The screen contains at least one domain-specific structured object richer than a generic card, KPI, chart, or table, and that object still looks feasible to build with normal app components rather than custom illustration. For business-facing operational tools, one continuous working surface with a few rich adjustable rows or levers can satisfy this if it clearly behaves like one operating section rather than a spreadsheet; explicit column headers, rigid table scaffolding, or the same repeated five-part row anatomy across the whole section fail it.
+37. The structured object feels designed for the product domain rather than a stock chart, placeholder widget, abstract infographic, or raw information dump.
+38. `CRITICAL` Records, rows, lanes, routes, timelines, and any analytical elements are curated and visually transformed into an integrated domain object instead of looking like a spreadsheet, decorated list, vertical option stack, central-node/price/score-with-row-stacks, feeder-card diagram, process grid, route option matrix, stage-labeled or numbered-step route, repeated row templates with fixed left-to-right columns, three-card board, a standard outlined blocker card, a hero chart doing all the work, or a single large shell subdivided into normal dashboard modules.
+39. Connector lines, timeline dots, route nodes, bars, row baselines, icons, chips, and repeated geometries align cleanly and look art-directed rather than loosely generated.
+40. The primary action cluster is visibly tied to the active object and current decision, not detached as a generic bottom footer/action rail, selected-summary rail, wide approval/planner tray, full-width recommendation band, or separate follow-up card beneath the focal object. The active workspace should also expose at least one nearby control, filter, or mode switch rather than forcing all utility into a single button.
 
-### I. Mobile Companion
+### I. Elevation, Radius, And Precision
 
-41. The mobile view is calmer than desktop and shows fewer simultaneous modules.
-42. `CRITICAL` The mobile view is not just a squeezed desktop screenshot.
-43. The mobile view preserves the key decision context and primary action.
-44. Mobile shadows, chips, tabs, and controls follow the same refined surface logic as desktop.
-45. Spacing, tap targets, and information density look comfortable on the phone view.
+41. `CRITICAL` Elevation is visible in the real UI, not only in the design dock.
+42. Elevation is applied to meaningful states such as selected records, command surfaces, nav chrome, important notices/cards, floating controls, popovers, or mobile controls, and it is used sparingly enough to stay premium.
+43. `CRITICAL` Every visible light-mode shadow matches Contact 0-3 only: a 1-2px crisp narrow grey contact edge, blur no greater than 3px, y-offset no greater than 2px, no shadow spread, no feathered blur, no soft aura, no Bootstrap/card-drop look, no broad halo, no dark band, no muddy cloud, and no abrupt cutoff. This applies to the design-system strip as well as the UI itself. If the edge reads as a soft shadow rather than a tight contact edge, fail it; border-only Contact 0 is preferable. In the dock, Contact tokens should appear as neutral sample surfaces plus text, not as colored swatches, semantic chips, or role-color ramps.
+44. Important lifted cards stay concise: one issue, short rationale, and minimal actions, not dense mini-pages.
+45. Radius tokens are coherent across app frame, panels, records, inputs, buttons, chips, nav controls, and mobile elements; repeated controls should feel like one calm control family, and smaller action surfaces should not sit in an awkward middle-radius enterprise zone. The default premium direction should lean clearly rounded and modern; zero/sharp corners are acceptable only when they are obviously intentional, but the vague 4-8px admin look fails. In rounded light-mode boards, the dock should usually sample something like 12px, 16px, 20px, 24px, and full pill rather than 4px/6px/8px.
+46. `CRITICAL` Major cards, notices, and active objects do not rely on dark colored borders or sharp status outlines. In light mode, border emphasis should stay soft and pastel-leaning; if a colored border is one of the darkest or sharpest things on the screen, fail it.
 
-### J. Design Dock Fidelity And Anti-Generic Gate
+### J. Mobile Companion And Design Dock
 
-46. The design dock is compact enough that it does not crowd the main board.
-47. Radius tokens shown in the dock match the visible UI.
-48. Elevation tokens shown in the dock match the visible UI.
-49. `CRITICAL` No part of the board still looks like a default shadcn/admin-template leftover.
-50. `CRITICAL` The overall quality is meaningfully close to the eight reference images, not merely "clean enough."
+47. `CRITICAL` The mobile view is a calmer companion view, not a squeezed desktop screenshot.
+48. Mobile preserves the active object, key decision context, and primary action while omitting or collapsing secondary desktop modules.
+49. Mobile spacing, tap targets, chips, cards, nav affordances, shadows, radius, and border treatment follow the same refined system as desktop.
+50. `CRITICAL` The board includes a full-width bottom design-system dock that is clearly separate from the app UI and detailed enough to implement from: foundation surfaces such as stage/canvas/navigation chrome, palette/status swatches, typography scale, radius samples, border treatment, exact Contact 0-3 elevation tokens named as Contact 0, Contact 1, Contact 2, and Contact 3 with their approved values, and a few component or state examples. If the dock is missing, tiny, cropped, too vague, overcrowded enough to lose token fidelity, replaced by a generic soft elevation scale, switched to generic labels such as `xs/sm/md/lg/xl/2xl` or `elevation-0..4`, turns the Contact area into hex-fill swatches or simplified border labels instead of neutral sample surfaces plus exact text, or clearly describes a different radius/elevation family than the app itself, fail the board.
 
 ## What To Do On Failure
 
 - If a critical item fails, reject the mock and regenerate.
 - If the mock passes fewer than 44 items, reject it and regenerate.
-- If the same item fails repeatedly across fresh prompts, strengthen the reusable skill guidance before generating again.
-
-## Batch-Level Repeatability Checks
-
-When validating whether the skill guidance really generalizes, do not stop at one strong mock. Run these checks across the fresh batch as well.
-
-1. Use a four-app validation batch unless the user asked for a different matrix.
-2. Default validation batch:
-   - CPQ
-   - ERP
-   - ticketing / Jira-style work tracking
-   - health / fitness
-3. Each app still has to pass the full 50-point per-mock checklist above.
-4. The batch fails if only one app looks premium while the others fall back to template-like UI.
-5. The batch fails if the same layout skeleton repeats across all four apps.
-6. The batch fails if the same blue-led palette repeats by default across all four apps without a product reason.
-7. The batch should show layout variety that fits the product:
-   - ERP and CPQ may use sidebars when they help.
-   - Ticketing and health / fitness should not default to the same sidebar shell unless the product brief clearly calls for it.
-8. The batch fails if the navigation model is chosen by habit rather than product fit.
-9. The batch fails if any one app becomes obviously more crowded, card-heavy, or information-dense than the others.
-10. The batch fails if any one app ignores the surface hierarchy, outer stage tint, navigation contrast, or elevation rules that stronger mocks in the batch already prove are possible.
-11. The skill guidance should only be treated as stable when the whole batch looks like it came from the same quality bar, not when one prompt happened to land well.
+- If one category repeatedly fails across fresh prompts, strengthen the reusable skill guidance for that category before generating again.
+- If a prompt-specific output fails but the reusable guidance is already clear, create a new fresh prompt for the next validation run instead of patching the failed prompt repeatedly.
