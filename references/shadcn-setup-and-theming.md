@@ -24,6 +24,8 @@ npx shadcn@latest init --preset b0 --template vite --pointer
 
 That flow creates the Vite app through the shadcn CLI and then asks for the project name interactively in the terminal. Provide the intended project name when prompted.
 
+Do not depend on `--name` support. Some CLI versions ignore it or do not support it consistently. If the CLI wants the project name interactively, treat that as normal and answer it in the terminal instead of failing the scaffold.
+
 or the package-manager equivalent:
 
 ```bash
@@ -59,6 +61,7 @@ If the CLI prompts for setup choices, use these defaults unless the user or exis
 - Tailwind and CSS variables: yes.
 
 Prefer non-interactive flags when they work. If the CLI still prompts, use a TTY and answer deliberately; do not abandon scaffolding because the first command was interactive.
+If the preferred command shape changes, the invariant is still the same: create a Vite React TypeScript shadcn/ui app in the real target folder, even if that requires stepping through the interactive CLI prompts.
 
 Recommended early order for a brand-new project:
 

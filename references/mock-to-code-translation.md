@@ -13,6 +13,8 @@ If either condition fails, continue iterating. Do not downgrade the requirement 
 
 Once the mock is approved, you are no longer designing broadly. You are reproducing an approved artifact. Make local implementation judgments only when they preserve or tighten fidelity.
 
+The approved artifact is a design board, not a literal page layout to recreate wholesale. The app regions inside the board are the product. The board presentation around them is reference packaging.
+
 ## Implementation Reading
 
 If `design/spec.json` exists, read it before writing the implementation reading. Treat it as the current approved token and design-continuity layer, then verify it against the approved board images.
@@ -61,8 +63,10 @@ Most generated mocks are design boards. Separate source regions before coding:
 - Token strip: use for colors, radius, surfaces, status colors, and component style.
 - Component examples: use for button/input/chip/table styling, not as extra product content.
 - Labels or annotations: use for design interpretation, not literal app UI unless they are part of the product screen.
+- Outer board stage, device frames, centered poster padding, and exhibition-style framing: do not implement these as product UI unless the product itself clearly requires them.
 
 Do not accidentally recreate the whole design-board canvas inside the app.
+Do not build an HTML mock sitting inside a big padded page. Build the real app so it owns the viewport. The browser window should feel like the product itself, not like a board containing the product.
 
 When extracting from the token strip, update `design/spec.json` first if it is missing or stale. Implementation should consume that structured spec rather than repeatedly re-parsing the board from scratch.
 
@@ -79,10 +83,18 @@ The implementation should match the mock in:
 - Mobile: same responsive priorities shown in the design board.
 - Scale: sidebar width, header height, KPI card height, table row height, right-panel width, mobile card density, and bottom-nav height should visually match the mock.
 - Interaction reality: visible controls should be real components with matching states, not frozen drawings of open/selected UI.
+- Viewport ownership: the implemented desktop app should occupy the viewport as the actual product shell rather than floating as a centered mock inside extra presentation padding.
 
 Do not accept "close enough" when the mismatch is visible in a screenshot. Fix it. The user should not be able to tell the implementation apart from the approved mock without deliberate forensic inspection.
 
 Treat any ordinary visible mismatch as a blocker, not a polish note.
+
+Treat these as explicit blockers as well:
+
+- the app reads like a design mock pasted into HTML instead of a real full app
+- the desktop screen is implemented as a floating exhibit card because the board itself was floating
+- the mobile region is treated as a device mockup instead of responsive product behavior
+- the outer board frame, poster spacing, or phone hardware silhouette are recreated as if they were product requirements
 
 Judge the match section by section, not only as one overall impression:
 

@@ -89,6 +89,7 @@ Use the templates in `assets/templates/` when they help, but the artifact itself
    - create the child folder first if needed
    - scaffold the real Vite/shadcn app directly there with `npx shadcn@latest init --preset b0 --template vite --pointer`
    - answer the CLI project-name prompt with the intended project name
+   - if `--name` or other non-interactive naming flags are unsupported or ignored, continue through the interactive CLI instead of failing
    - do not scaffold into a temp folder and copy later
    - install `lucide-react`, `openai`, and `playwright`
    - only after the app exists, create `mocks/`, set up `.env` / `.env.example`, and copy `assets/scripts/generate-design-mock.mjs`
@@ -108,6 +109,9 @@ Use the templates in `assets/templates/` when they help, but the artifact itself
    - the desktop app view
    - the mobile companion view
    - the full-width bottom design-system dock
+9. Allow enough time for generation to complete.
+   - High-quality image generation may take a couple of minutes and can take up to around 10 minutes.
+   - Wait and poll rather than assuming the run stopped just because there is no immediate output.
 
 ### Phase 2: Mock Acceptance Loop
 
@@ -187,7 +191,11 @@ This phase repeats until ordinary visible drift is gone.
 1. Build the UI as a real interactive app.
    - visible controls must be real components with real state
    - static facsimiles fail
+   - the app must own the viewport as the real product UI; do not recreate the board as a centered exhibit inside the browser
 2. Reproduce the approved board section by section.
+   - implement the approved desktop app region as the real desktop app
+   - implement the approved mobile app region as the responsive/mobile state
+   - do not implement the board's presentation frame, device frame, poster padding, or gallery-style outer canvas as literal product UI unless the product itself genuinely requires that structure
 3. Use custom CSS whenever Tailwind or stock shadcn styling is not enough.
 4. After each meaningful implementation pass, update:
    - `design/implementation-review.md`
@@ -200,6 +208,7 @@ This phase repeats until ordinary visible drift is gone.
 7. `design/implementation-review.md` must cite screenshot evidence region by region rather than giving a high-level mood summary.
 8. If the open-gaps file contains ordinary UI drift, the phase is still open.
 9. Only truly hard bespoke illustration regions may remain as softer-tolerance exceptions, and those exceptions must be stated explicitly.
+10. If the implementation still reads like a mock or board placed inside HTML rather than a full app owning the viewport, the phase is still open.
 
 ### Phase 6: Playwright Verification Loop
 
@@ -277,6 +286,7 @@ If any ordinary visible mismatch remains, signoff is not allowed.
 - Do not stop at a mock that merely feels close. Use the correction loop.
 - Do not ship a static facsimile of the mock. Visible controls must behave like real UI components.
 - Do not sign off implementation while `design/implementation-open-gaps.md` still contains ordinary UI drift.
+- Do not implement the design board frame as product UI. The real app should own the viewport; do not center a floating mock canvas inside the browser unless the approved product actually calls for that.
 - Do not let Tailwind or shadcn defaults become excuses for mismatch. Use custom CSS and component overrides.
 - Do not stop when the page is only broadly aligned. Stop when the documented gaps are gone.
 - Do not use vague success language such as `close enough`, `broadly aligned`, `approved direction`, or `ordinary review` as a substitute for screenshot-backed proof.

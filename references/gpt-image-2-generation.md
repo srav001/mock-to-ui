@@ -48,6 +48,8 @@ bun scripts/generate-design-mock.mjs \
 
 Use the Responses API only when the implementation needs conversational image state or image-generation tool behavior. For this skill, the provided script uses the Image API because it is direct, simple, and suitable for saved design-board files.
 
+Image generation is not instant. A high-quality board can take a couple of minutes and may take up to roughly 10 minutes in slower cases. Do not assume the run is stuck just because there is no immediate output. Wait for it, poll for completion, and only treat it as failed when there is an actual error or an unreasonable overrun beyond that window.
+
 For mock-only skill testing, run the script directly from the skill folder and save artifacts outside any generated app:
 
 ```bash
@@ -72,6 +74,7 @@ This mock-only path is for image iteration only. Do not scaffold or build a fron
   - `2048x1152` for high-detail desktop boards when cost/latency are acceptable.
 - Do not request transparent backgrounds with `gpt-image-2`; it is not supported.
 - For edits with image references, do not set `input_fidelity`; `gpt-image-2` handles image inputs at high fidelity automatically.
+- When running project-local generation scripts, allow enough wall-clock time for the request to complete. Do not kill the generation early just because the image API is slower than a normal CLI command.
 
 ## Design Board Requirements
 

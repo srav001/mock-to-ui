@@ -180,6 +180,7 @@ Scrutinize these regions separately:
 - Main workflow surface: overall geometry, proportions, attached actions, inline metrics, separators, and emphasis.
 - Supporting modules: weight, openness, padding, and whether they are too cardy or too heavy.
 - Mobile viewport: what appears above the fold, density, stacking, and action prominence.
+- Viewport ownership: whether the browser window feels like the real app or like a board/mock being displayed inside HTML.
 
 Give strict scrutiny to all ordinary UI areas. Controls, chips, spacing, borders, navigation, content structure, and layout proportions should be extremely close everywhere on the screen. Allow relatively more tolerance only for truly bespoke illustration regions such as custom anatomy/body graphics, and even then preserve their compositional role.
 
@@ -200,6 +201,12 @@ Do not let phrases like `close enough`, `broadly aligned`, `approved direction`,
 - resolved status
 
 The first real comparison pass should not declare the ledger empty. If you think the first pass has no ordinary mismatch, you must still run the adversarial pass before claiming that.
+
+Add these implementation-specific failure checks:
+
+- Does the app still look like a mock centered inside a browser page rather than the real product owning the viewport?
+- Did the agent recreate the board frame, outer stage, or phone hardware instead of implementing the actual app regions?
+- Is extra presentation padding making the page feel like an exhibit rather than an application shell?
 
 ## Scale Calibration Pass
 
@@ -230,6 +237,7 @@ Make repeated deliberate corrections when the implementation is visibly looser, 
 - Ask before signoff: if the user overlaid these two images, what would still reveal that this is not one-to-one?
 - Ask before signoff: am I giving a pass because the page feels close overall even though one section is still clearly wrong?
 - Ask before signoff: which exact screenshot proves that this region is finished?
+- Ask before signoff: does this browser window feel like the real app, or like a mock being presented inside HTML?
 
 ## Functional QA
 

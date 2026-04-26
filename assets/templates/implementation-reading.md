@@ -11,3 +11,4 @@
 - Mobile behavior:
 - Interaction states:
 - Visual risks to verify:
+- Board framing to ignore during implementation:

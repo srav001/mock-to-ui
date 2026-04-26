@@ -60,6 +60,8 @@ Done means:
 - Sidebar/header/navigation/shell proportions match the mock.
 - Responsive shell behavior is started, not left for the end.
 - Desktop screenshot matches the mock's composition.
+- The implemented app owns the viewport as the actual product shell; it does not read like a centered design mock or poster inside the browser.
+- Outer board framing such as gallery padding, device hardware, or presentation-stage treatment has not been copied into the product UI unless explicitly required by the approved design itself.
 
 ## Checkpoint 5: Main Content
 
@@ -117,4 +119,4 @@ Done means:
 
 If any reviewer could still point at an obvious ordinary-view mismatch between the app and the mock, this checkpoint has not passed.
 
-If the remaining mismatch is in ordinary UI chrome, content structure, spacing, borders, controls, navigation, or layout proportions, this checkpoint has definitely not passed. Only genuinely hard bespoke illustration areas deserve softer tolerance.
+If the remaining mismatch is in ordinary UI chrome, content structure, spacing, borders, controls, navigation, layout proportions, mobile content priority, or whether the app still reads like a mock embedded in HTML, this checkpoint has definitely not passed. Only genuinely hard bespoke illustration areas deserve softer tolerance.
