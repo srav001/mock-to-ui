@@ -10,9 +10,9 @@
 - Failed items:
 - Pass/fail call:
 - Sub-scores:
-  - Structure:
-  - Polish:
-  - Implementation metadata:
+  - Structure: `__/20`
+  - Polish: `__/22`
+  - Implementation metadata: `__/8`
 
 ## Notes
 

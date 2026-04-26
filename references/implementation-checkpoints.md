@@ -61,6 +61,8 @@ Done means:
 - Responsive shell behavior is started, not left for the end.
 - Desktop screenshot matches the mock's composition.
 - The implemented app owns the viewport as the actual product shell; it does not read like a centered design mock or poster inside the browser.
+- The browser-visible outer page does not feel like a second presentation canvas around the app.
+- If the approved board had a rounded outer shell, that shell has been interpreted as the real app boundary rather than a floating card inside another page.
 - Outer board framing such as gallery padding, device hardware, or presentation-stage treatment has not been copied into the product UI unless explicitly required by the approved design itself.
 
 ## Checkpoint 5: Main Content
@@ -112,7 +114,9 @@ Done means:
 - Additional focused screenshots of important regions and interaction states were captured when needed to verify one-to-one fidelity.
 - The screenshot artifacts have been reviewed against the approved mock.
 - Visible differences have been fixed; only concrete implementation constraints may remain, and they must be explicitly justified.
+- `design/implementation-review.md` still uses the required region-review and adversarial tables.
 - `design/implementation-open-gaps.md` is empty or contains only explicitly tolerated hard-illustration exceptions.
+- `design/implementation-open-gaps.md` still uses the required mismatch-ledger table and did not collapse into prose.
 - The first comparison pass did not falsely declare the open-gaps ledger empty.
 - An adversarial final pass was completed and documented in `design/implementation-review.md`.
 - The final response identifies the generated project path, approved mock path, and verification performed.

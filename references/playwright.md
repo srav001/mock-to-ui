@@ -74,6 +74,8 @@ mocks/verification/final-desktop.png
 mocks/verification/final-mobile.png
 ```
 
+`final-desktop.png` and `final-mobile.png` are required canonical signoff artifacts even if you also keep earlier numbered captures.
+
 Remove stale failed screenshots or keep them clearly separated from final evidence.
 
 Focused region screenshots should use predictable names when practical:
@@ -200,6 +202,10 @@ Do not let phrases like `close enough`, `broadly aligned`, `approved direction`,
 - next fix
 - resolved status
 
+Keep the required table structure from the template. Do not replace the ledger with bullets or prose. When no unresolved ordinary gaps remain, keep the table and use the explicit `None | n/a | ...` row from the template rather than writing a summary sentence.
+
+`design/implementation-review.md` must also keep its region-review and adversarial tables. A prose-only review is a failed artifact, even if the screenshots exist.
+
 The first real comparison pass should not declare the ledger empty. If you think the first pass has no ordinary mismatch, you must still run the adversarial pass before claiming that.
 
 Add these implementation-specific failure checks:
@@ -207,6 +213,8 @@ Add these implementation-specific failure checks:
 - Does the app still look like a mock centered inside a browser page rather than the real product owning the viewport?
 - Did the agent recreate the board frame, outer stage, or phone hardware instead of implementing the actual app regions?
 - Is extra presentation padding making the page feel like an exhibit rather than an application shell?
+- Is the browser still showing a second neutral page around the product instead of the product itself owning that space?
+- Is a floating rounded shell being excused as a design choice when it is really the board frame leaking into implementation?
 
 ## Scale Calibration Pass
 
@@ -238,6 +246,7 @@ Make repeated deliberate corrections when the implementation is visibly looser, 
 - Ask before signoff: am I giving a pass because the page feels close overall even though one section is still clearly wrong?
 - Ask before signoff: which exact screenshot proves that this region is finished?
 - Ask before signoff: does this browser window feel like the real app, or like a mock being presented inside HTML?
+- Ask before signoff: did I silently turn a blocking shell/layout issue into an "acceptable simplification" because the page looked polished?
 
 ## Functional QA
 
@@ -304,6 +313,8 @@ Before final response, confirm:
 - Desktop screenshot was captured and reviewed against the approved mock.
 - Mobile screenshot was captured and reviewed against the approved mock.
 - Focused region screenshots were captured and reviewed against the approved mock.
+- `design/implementation-review.md` still uses the required tables.
+- `design/implementation-open-gaps.md` still uses the required mismatch-ledger table.
 - A scale-calibration pass was completed after the first screenshots.
 - At least one interaction state was captured or manually inspected when interactions exist.
 - An adversarial final pass was completed and documented.

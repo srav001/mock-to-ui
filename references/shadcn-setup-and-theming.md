@@ -63,16 +63,19 @@ If the CLI prompts for setup choices, use these defaults unless the user or exis
 Prefer non-interactive flags when they work. If the CLI still prompts, use a TTY and answer deliberately; do not abandon scaffolding because the first command was interactive.
 If the preferred command shape changes, the invariant is still the same: create a Vite React TypeScript shadcn/ui app in the real target folder, even if that requires stepping through the interactive CLI prompts.
 
+Shadcn is the starting system, not the only allowed dependency. If the approved mock or interaction model benefits from a suitable React/JS library such as a charting library, date planner, virtualized list, calendar, motion helper, or specialized input primitive, install it and use it. Choose libraries pragmatically to match the approved app, not because the default component set is limited.
+
 Recommended early order for a brand-new project:
 
 1. confirm the target path
 2. create the child folder first if needed
 3. scaffold the actual Vite/shadcn app directly in that location
 4. install `lucide-react`, `openai`, and `playwright`
-5. create `mocks/`
-6. copy or create `.env` / `.env.example`
-7. copy `scripts/generate-design-mock.mjs`
-8. only then start mock generation for that project
+5. install any additional React/JS libraries the approved mock genuinely needs
+6. create `mocks/`
+7. copy or create `.env` / `.env.example`
+8. copy `scripts/generate-design-mock.mjs`
+9. only then start mock generation for that project
 
 ## Components
 

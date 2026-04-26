@@ -67,6 +67,8 @@ Most generated mocks are design boards. Separate source regions before coding:
 
 Do not accidentally recreate the whole design-board canvas inside the app.
 Do not build an HTML mock sitting inside a big padded page. Build the real app so it owns the viewport. The browser window should feel like the product itself, not like a board containing the product.
+If the approved board shows a rounded outer shell around the desktop app, treat that shell as the real application boundary or chrome edge, not as a second framed object that floats inside another neutral page.
+The outermost browser-visible page should usually be the product background and shell. A separate exhibition page around the app is a failure unless the product explicitly calls for it.
 
 When extracting from the token strip, update `design/spec.json` first if it is missing or stale. Implementation should consume that structured spec rather than repeatedly re-parsing the board from scratch.
 
@@ -95,6 +97,7 @@ Treat these as explicit blockers as well:
 - the desktop screen is implemented as a floating exhibit card because the board itself was floating
 - the mobile region is treated as a device mockup instead of responsive product behavior
 - the outer board frame, poster spacing, or phone hardware silhouette are recreated as if they were product requirements
+- the browser still shows a second presentation canvas or extra perimeter padding around what should be the real app
 
 Judge the match section by section, not only as one overall impression:
 
@@ -110,6 +113,7 @@ Do not let a strong overall mood hide easy misses in the header, top controls, s
 If the mock contains a bespoke generated illustration region such as a body silhouette or custom anatomy-style figure, that zone may be allowed a looser match than the surrounding UI chrome. Preserve its role and composition, but do not use illustration difficulty as an excuse for drift in the rest of the interface.
 
 Keep a running `design/implementation-review.md` and `design/implementation-open-gaps.md` during this phase. If an ordinary visible mismatch is still in the open-gaps file, the implementation is not ready to sign off.
+Those two files must preserve the required ledger tables from the templates. Prose summaries are not an acceptable substitute.
 
 ## Scale Calibration
 
@@ -151,3 +155,5 @@ Use simple local state. Do not build a backend unless the user requested it.
 Do not hardcode a screenshot-like state when the mock clearly shows an interactive control. If a dropdown is open in the mock, use a real dropdown/select/menu and open it for the captured state. If a dialog, sheet, popover, tooltip, tabset, switch, slider, or accordion is visible, build the real component and capture the correct state through interaction.
 
 If Tailwind utilities or stock shadcn styling are not sufficient for one-to-one fidelity, add custom CSS classes and targeted component styling. Fidelity matters more than staying inside default utility patterns.
+
+You may also install and use any suitable React/JS libraries when they help reproduce the approved mock or the interaction model more faithfully. Charting libraries, calendar/date-planner libraries, motion helpers, advanced input primitives, and other focused UI libraries are acceptable when used intentionally. Do not force everything through stock shadcn components if a small additional library is the more faithful implementation path.

@@ -71,7 +71,7 @@ These files are mandatory enforcement artifacts in delivery mode. They are how t
 - `design/implementation-review.md`: running section-by-section comparison of app vs approved mock.
 - `design/implementation-open-gaps.md`: every remaining mismatch. This file must be empty or contain only explicitly tolerated hard-illustration exceptions before signoff.
 
-Use the templates in `assets/templates/` when they help, but the artifact itself matters more than the exact wording.
+The templates in `assets/templates/` are enforcement artifacts, not optional style hints. Copy their structure directly and fill them in. If an artifact drops the required tables, replaces them with prose, or changes shape enough that rows can no longer be audited, the run fails.
 
 ## Multi-Phase Protocol
 
@@ -92,6 +92,7 @@ Use the templates in `assets/templates/` when they help, but the artifact itself
    - if `--name` or other non-interactive naming flags are unsupported or ignored, continue through the interactive CLI instead of failing
    - do not scaffold into a temp folder and copy later
    - install `lucide-react`, `openai`, and `playwright`
+   - install any additional React/JS libraries the approved mock or interaction model genuinely needs; shadcn is the base, not the full ceiling
    - only after the app exists, create `mocks/`, set up `.env` / `.env.example`, and copy `assets/scripts/generate-design-mock.mjs`
 
 ### Phase 1: First Light Board
@@ -183,6 +184,12 @@ The agent is not allowed to approve a mock from overall vibe, broad similarity, 
    - mobile view
    - visible interaction states
 4. Remember that implementation is now a reproduction task, not a design-exploration task.
+5. Separate board packaging from product UI before coding.
+   - the desktop app region is the real desktop app
+   - the mobile app region is the real mobile/responsive state
+   - the dock is implementation metadata only
+   - the outer board stage, poster spacing, and phone frame are not product UI
+   - if the board shows a rounded outer app shell, implement that shell as the product boundary owning the viewport, not as a centered exhibit floating inside another page
 
 ### Phase 5: Implementation Reproduction Loop
 
@@ -192,6 +199,8 @@ This phase repeats until ordinary visible drift is gone.
    - visible controls must be real components with real state
    - static facsimiles fail
    - the app must own the viewport as the real product UI; do not recreate the board as a centered exhibit inside the browser
+   - the browser body/root must feel like the product itself, not like a gallery page containing the product
+   - extra presentation padding, a second neutral page around the app, or a floating poster shell are blocking failures unless the product itself explicitly requires that structure
 2. Reproduce the approved board section by section.
    - implement the approved desktop app region as the real desktop app
    - implement the approved mobile app region as the responsive/mobile state
@@ -202,13 +211,25 @@ This phase repeats until ordinary visible drift is gone.
    - `design/implementation-open-gaps.md`
 5. `design/implementation-open-gaps.md` must be a structured mismatch ledger, not a vague note.
    - For each gap, record the region, approved mock reference, current screenshot reference, visible mismatch, severity, next fix, and resolved status.
+   - Keep the required table header in place.
+   - Do not replace the table with bullet points, headings, or prose such as "no gaps remain."
+   - If there are temporarily no open ordinary gaps, retain the table with the explicit `None | n/a | ...` row required by the template.
 6. The first real comparison pass is not allowed to declare the open-gaps file empty.
    - On the first pass, record the visible differences you can see.
    - If you believe nothing ordinary is wrong, run the adversarial pass from Phase 6 first and document why it still found no blocking differences.
-7. `design/implementation-review.md` must cite screenshot evidence region by region rather than giving a high-level mood summary.
+7. `design/implementation-review.md` must cite screenshot evidence region by region using the required ledger table rather than giving a high-level mood summary.
+   - Do not replace the table with freeform prose sections.
+   - Every region row must name what matches, what still differs, and what fix is next.
 8. If the open-gaps file contains ordinary UI drift, the phase is still open.
 9. Only truly hard bespoke illustration regions may remain as softer-tolerance exceptions, and those exceptions must be stated explicitly.
 10. If the implementation still reads like a mock or board placed inside HTML rather than a full app owning the viewport, the phase is still open.
+11. "Acceptable simplification" is not allowed for ordinary UI shell/layout issues.
+   - floating centered app shell
+   - extra outer page background
+   - missing or altered support modules
+   - mobile content-priority drift
+   - ordinary spacing/layout geometry drift
+   - these are blockers, not stylistic discretion
 
 ### Phase 6: Playwright Verification Loop
 
@@ -233,11 +254,13 @@ This phase is the main enforcement loop for implementation. Expect many passes.
    - update `design/implementation-review.md` with screenshot-backed region notes
    - fix them
    - re-run the Playwright capture
+   - if either artifact lost the required table structure, restore it immediately before continuing
 6. Keep looping until the open-gaps file is empty or contains only explicitly tolerated hard-illustration exceptions.
 7. Run one adversarial pass after you think the UI is done.
    - Assume the implementation is still wrong.
    - Try to find at least five visible differences.
    - Either record and fix them, or explain specifically why each suspected difference is not a real blocking mismatch.
+   - shell/layout ownership issues cannot be dismissed as acceptable simplification
 8. Do not stop because the page feels broadly right. Stop only when the documented gaps are gone.
 9. Tens or dozens of screenshot passes are acceptable. This skill should keep the agent in the loop until the UI is effectively indistinguishable from the mock.
 
@@ -250,9 +273,12 @@ Signoff is blocked unless all of the following are true:
 - `design/spec.json` and `design/history.md` are current
 - `design/implementation-reading.md` exists
 - `design/implementation-review.md` exists
-- `design/implementation-open-gaps.md` is empty or contains only explicitly allowed hard-illustration exceptions
+- `design/implementation-review.md` still uses the required region-review and adversarial tables from the template
+- `design/implementation-open-gaps.md` still uses the required mismatch-ledger table from the template
+- `design/implementation-open-gaps.md` is empty only in the template-defined sense or contains only explicitly allowed hard-illustration exceptions
 - the app is interactive rather than static
 - desktop and mobile Playwright screenshots exist
+- canonical final verification screenshots exist at `mocks/verification/final-desktop.png` and `mocks/verification/final-mobile.png`
 - focused region screenshots exist for navigation chrome, header/context, dominant workflow surface, support modules, and mobile above-the-fold
 - at least one adversarial final pass was completed and documented in `design/implementation-review.md`
 - code checks have been run when code changed
@@ -273,8 +299,8 @@ If any ordinary visible mismatch remains, signoff is not allowed.
 - `assets/templates/mock-review.md`: optional template for the required mock approval artifact.
 - `assets/templates/mock-revision-notes.md`: optional template for in-place mock correction.
 - `assets/templates/implementation-reading.md`: optional template for the pre-code mock reading.
-- `assets/templates/implementation-review.md`: optional template for section-by-section implementation review.
-- `assets/templates/implementation-open-gaps.md`: optional template for the signoff-blocking open-gaps file.
+- `assets/templates/implementation-review.md`: required structural template for section-by-section implementation review.
+- `assets/templates/implementation-open-gaps.md`: required structural template for the signoff-blocking open-gaps file.
 
 ## Non-Negotiables
 
@@ -287,6 +313,7 @@ If any ordinary visible mismatch remains, signoff is not allowed.
 - Do not ship a static facsimile of the mock. Visible controls must behave like real UI components.
 - Do not sign off implementation while `design/implementation-open-gaps.md` still contains ordinary UI drift.
 - Do not implement the design board frame as product UI. The real app should own the viewport; do not center a floating mock canvas inside the browser unless the approved product actually calls for that.
+- Do not let review artifacts degrade into prose. The required ledger/table structure is part of the enforcement mechanism.
 - Do not let Tailwind or shadcn defaults become excuses for mismatch. Use custom CSS and component overrides.
 - Do not stop when the page is only broadly aligned. Stop when the documented gaps are gone.
 - Do not use vague success language such as `close enough`, `broadly aligned`, `approved direction`, or `ordinary review` as a substitute for screenshot-backed proof.
