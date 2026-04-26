@@ -87,11 +87,13 @@ The templates in `assets/templates/` are enforcement artifacts, not optional sty
 5. If full delivery requires a new app:
    - confirm the target path
    - create the child folder first if needed
-   - scaffold the real Vite/shadcn app directly there with `npx shadcn@latest init --preset b0 --template vite --pointer`
-   - answer the CLI project-name prompt with the intended project name
-   - if `--name` or other non-interactive naming flags are unsupported or ignored, continue through the interactive CLI instead of failing
+   - scaffold the real Vite React TypeScript app first with `npx create-vite@latest YourAppName --template react-ts --no-interactive`
+   - use the actual app's name in place of `YourAppName` and run it from the parent directory of the new app
+   - if the target folder already exists and is meant to be the app root, make it empty enough first and scaffold the real app there rather than creating a temporary project elsewhere
    - do not scaffold into a temp folder and copy later
-   - install `lucide-react`, `openai`, and `playwright`
+   - inside the new app, install `openai` and `playwright` as dev dependencies
+   - add shadcn inside that created Vite app
+   - install `lucide-react`
    - install any additional React/JS libraries the approved mock or interaction model genuinely needs; shadcn is the base, not the full ceiling
    - only after the app exists, create `mocks/`, set up `.env` / `.env.example`, and copy `assets/scripts/generate-design-mock.mjs`
 

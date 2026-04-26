@@ -6,38 +6,30 @@ Shadcn/ui and Tailwind are accelerators, not fidelity limits. If they are not en
 
 ## Scaffold
 
-Prefer a fresh Vite React TypeScript shadcn/ui project unless the user requests another framework. Before running scaffold commands, confirm the target path.
+Prefer a fresh Vite React TypeScript project unless the user requests another framework. Before running scaffold commands, confirm the target path.
 
 The intended app root should become the real scaffold location. Do not create a temporary Vite/shadcn app somewhere else and then copy it into the target folder just because the target is non-empty. If the target folder is meant to be the app, make it empty enough first and scaffold there directly.
 
-Current shadcn documentation recommends the latest CLI flow for Vite, such as:
+Create the Vite app first. Use a command in this shape from the parent directory:
 
 ```bash
-npx shadcn@latest init -t vite --name <app-name>
+npx create-vite@latest YourAppName --template react-ts --no-interactive
 ```
 
-When available, prefer this fuller CLI flow for this skill:
+Use the actual app's name in place of `YourAppName`.
+
+After the Vite React TypeScript app exists, enter it and install the build-time tooling needed by this skill:
 
 ```bash
-npx shadcn@latest init --preset b0 --template vite --pointer
+cd YourAppName
+npm install -D openai playwright
 ```
 
-That flow creates the Vite app through the shadcn CLI and then asks for the project name interactively in the terminal. Provide the intended project name when prompted.
+Then initialize shadcn inside that created app. If the shadcn CLI prompts interactively, treat that as normal and answer it in the terminal instead of failing the setup.
 
-Do not depend on `--name` support. Some CLI versions ignore it or do not support it consistently. If the CLI wants the project name interactively, treat that as normal and answer it in the terminal instead of failing the scaffold.
+Do not depend on unsupported `--name` or other non-portable CLI flags for the shadcn step. The invariant is: create the Vite app first, then add shadcn inside it.
 
-or the package-manager equivalent:
-
-```bash
-bunx shadcn@latest init -t vite
-pnpm dlx shadcn@latest init -t vite
-```
-
-Do not use `npm dlx`; not every npm version supports it. Use `npx` for npm-based projects.
-
-Because shadcn CLI behavior changes over time, check command output and generated files before proceeding. If the CLI offers choices, choose React, TypeScript, Tailwind, CSS variables, and the app structure that best supports shadcn components.
-
-Install `lucide-react` as part of the initial setup. The implementation phase assumes a consistent icon library is available for navigation, status, controls, and lightweight UI ornament, and `lucide-react` is the default icon set for this skill.
+Once shadcn is added, install `lucide-react` as a normal dependency. The implementation phase assumes a consistent icon library is available for navigation, status, controls, and lightweight UI ornament, and `lucide-react` is the default icon set for this skill.
 
 ```bash
 npm install lucide-react
@@ -46,8 +38,11 @@ npm install lucide-react
 or the package-manager equivalent:
 
 ```bash
+pnpm add -D openai playwright
 pnpm add lucide-react
+bun add -d openai playwright
 bun add lucide-react
+yarn add -D openai playwright
 yarn add lucide-react
 ```
 
@@ -60,8 +55,8 @@ If the CLI prompts for setup choices, use these defaults unless the user or exis
 - TypeScript: yes.
 - Tailwind and CSS variables: yes.
 
-Prefer non-interactive flags when they work. If the CLI still prompts, use a TTY and answer deliberately; do not abandon scaffolding because the first command was interactive.
-If the preferred command shape changes, the invariant is still the same: create a Vite React TypeScript shadcn/ui app in the real target folder, even if that requires stepping through the interactive CLI prompts.
+Prefer non-interactive flags when they work for the Vite scaffold. If the shadcn step still prompts, use a TTY and answer deliberately; do not abandon setup because the second step is interactive.
+If command shapes change over time, the invariant is still the same: create a Vite React TypeScript app in the real target folder first, then add the required dev dependencies, then add shadcn inside that app.
 
 Shadcn is the starting system, not the only allowed dependency. If the approved mock or interaction model benefits from a suitable React/JS library such as a charting library, date planner, virtualized list, calendar, motion helper, or specialized input primitive, install it and use it. Choose libraries pragmatically to match the approved app, not because the default component set is limited.
 
@@ -69,13 +64,15 @@ Recommended early order for a brand-new project:
 
 1. confirm the target path
 2. create the child folder first if needed
-3. scaffold the actual Vite/shadcn app directly in that location
-4. install `lucide-react`, `openai`, and `playwright`
-5. install any additional React/JS libraries the approved mock genuinely needs
-6. create `mocks/`
-7. copy or create `.env` / `.env.example`
-8. copy `scripts/generate-design-mock.mjs`
-9. only then start mock generation for that project
+3. scaffold the actual Vite React TypeScript app directly in that location
+4. install `openai` and `playwright` as dev dependencies
+5. add shadcn inside that app
+6. install `lucide-react`
+7. install any additional React/JS libraries the approved mock genuinely needs
+8. create `mocks/`
+9. copy or create `.env` / `.env.example`
+10. copy `scripts/generate-design-mock.mjs`
+11. only then start mock generation for that project
 
 ## Components
 
