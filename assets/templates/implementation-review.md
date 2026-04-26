@@ -10,6 +10,7 @@
 
 Use one row per region. Do not summarize by overall mood alone.
 Keep this exact ledger table structure. Do not replace it with freeform prose sections.
+Each row must judge both layout fidelity and style fidelity. A row is not resolved if placement is correct but typography, chrome tone, control styling, border/shadow treatment, or color handling still drift visibly.
 
 | Region | Approved mock reference | Current screenshot reference | What matches | Visible mismatch | Severity (`blocking` or `non-blocking`) | Next fix | Resolved? |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -24,6 +25,7 @@ Keep this exact ledger table structure. Do not replace it with freeform prose se
 
 After the UI seems done, assume it is still wrong and try to find at least five visible differences.
 Keep this exact table structure. Do not replace it with a narrative paragraph.
+At least some suspected differences should actively test for style drift, not only placement drift.
 
 | Suspected difference | Screenshot reference | Real blocker? | If not a blocker, why not? | Action taken |
 | --- | --- | --- | --- | --- |

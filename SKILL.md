@@ -12,6 +12,7 @@ Re-read this `SKILL.md` after every compaction before continuing work. Do not as
 Use GPT Image as the visual design source of truth before writing the frontend. First create or revise a light-mode design board with `gpt-image-2`; only after the light board is approved or the user explicitly waives approval should the agent generate the matching dark-mode board and then translate the approved design into a React shadcn/ui implementation.
 
 This skill is strict because its goal is not a generic approximation. The delivered UI should match the approved mock as closely as practical: layout, color roles, density, border radius, typography feel, component hierarchy, responsive behavior, and visual polish should all be intentionally reproduced. Do not stop halfway, do not leave a generic starter UI, and do not claim completion until the written gates below have actually been cleared.
+Layout fidelity alone is not enough. If the implementation keeps the right structure but drifts into a different styling language, the run still fails.
 
 Do not over-trust the image model. `gpt-image-2` and similar image models are not expected to internalize complex design governance as reliably as a full reasoning agent. The calling agent is responsible for translating this skill into a focused prompt that foregrounds the critical rules, and then for validating the output harshly instead of assuming the model followed instructions just because they were present somewhere in the prompt.
 
@@ -23,12 +24,14 @@ This is the lifeline of the skill and it overrides any temptation to be "good en
 
 - The built app must be a real interactive app, not a static visual facsimile.
 - The built app must be a near one-to-one reproduction of the approved mock to the finest practical detail.
+- Layout fidelity and style fidelity are separate hard gates. Passing one does not excuse failing the other.
 - If the implementation is visibly off, the implementation has failed and the agent must keep iterating.
 - If stock shadcn or Tailwind styling is not enough, the agent must use custom CSS, custom classes, and component overrides until the mock is matched.
 - If a visible control exists in the mock, it must be implemented as a real control with matching state, not as frozen markup.
 - The agent must keep doubting the match and re-checking it with Playwright until the user should not be able to tell the difference between the mock and the app in normal comparison.
 - The agent must review the implementation part by part, section by section, and area by area. Do not judge the page only as a whole.
 - Ordinary UI structure must be exact across the whole screen. Buttons, chips, tabs, spacing, border treatment, layout geometry, navigation, content structure, and support regions are not allowed to drift just because the overall page mood feels close.
+- Ordinary UI styling must also be exact across the whole screen. Typography weight, chrome tone, control proportions, fill treatment, border strength, shadow/contact edges, and palette restraint are not allowed to drift just because the layout feels close.
 - Hard bespoke illustration zones may be the only tolerated approximation. If a mock includes a body silhouette, custom human figure, decorative anatomy drawing, or similarly bespoke generated art, preserve the composition and role of that area, but prioritize exactness everywhere else around it.
 
 Treat these as hard constraints, not suggestions. Provider, model family, or time pressure do not relax them.
@@ -208,6 +211,7 @@ This phase repeats until ordinary visible drift is gone.
    - implement the approved mobile app region as the responsive/mobile state
    - do not implement the board's presentation frame, device frame, poster padding, or gallery-style outer canvas as literal product UI unless the product itself genuinely requires that structure
 3. Use custom CSS whenever Tailwind or stock shadcn styling is not enough.
+   - If the implementation starts reading like a default shadcn/Tailwind app wearing the mock's layout, keep iterating until the styling language also matches.
 4. After each meaningful implementation pass, update:
    - `design/implementation-review.md`
    - `design/implementation-open-gaps.md`
@@ -222,15 +226,21 @@ This phase repeats until ordinary visible drift is gone.
 7. `design/implementation-review.md` must cite screenshot evidence region by region using the required ledger table rather than giving a high-level mood summary.
    - Do not replace the table with freeform prose sections.
    - Every region row must name what matches, what still differs, and what fix is next.
+   - Every region row must judge both structure and styling. A row is still open if placement is correct but styling remains visibly different.
 8. If the open-gaps file contains ordinary UI drift, the phase is still open.
+   - Style-only drift still counts as ordinary UI drift and must keep the phase open.
 9. Only truly hard bespoke illustration regions may remain as softer-tolerance exceptions, and those exceptions must be stated explicitly.
 10. If the implementation still reads like a mock or board placed inside HTML rather than a full app owning the viewport, the phase is still open.
-11. "Acceptable simplification" is not allowed for ordinary UI shell/layout issues.
+11. If the implementation preserves placement but still looks like a different design system than the approved mock, the phase is still open.
+12. "Acceptable simplification" is not allowed for ordinary UI shell/layout issues.
    - floating centered app shell
    - extra outer page background
    - missing or altered support modules
    - mobile content-priority drift
    - ordinary spacing/layout geometry drift
+   - generic default control styling replacing the mock's styling language
+   - heavier or flatter chrome than the mock
+   - typography and border treatment drift
    - these are blockers, not stylistic discretion
 
 ### Phase 6: Playwright Verification Loop

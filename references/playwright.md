@@ -40,6 +40,8 @@ Do not allow those files to become vague signoff theater. They should contain sc
    - Do not accept a functional pass as visual proof.
    - Repeat the loop until the user should not be able to tell the implementation from the mock in ordinary comparison.
    - Treat every ordinary visible mismatch as a blocker that keeps the loop open.
+   - Treat styling drift as a separate blocker from layout drift.
+   - If the layout is close but the implementation still looks like a different design system, the loop stays open.
    - Inspect the page section by section, not only as a full-page mood check.
    - Update `design/implementation-open-gaps.md` after each pass before coding the next fix.
    - Update `design/implementation-review.md` with screenshot-backed region notes after each pass.
@@ -174,6 +176,7 @@ Compare the Playwright screenshot to the approved mock for:
 - Interaction fidelity: visible open or active controls in the mock are reproduced through real component state, not static markup.
 - Mobile: same content priority, stacking, spacing, and navigation pattern.
 - Scale calibration: sidebar width, header height, KPI card height, table row height, right-panel width, mobile density, and bottom-nav height match the mock.
+- Style fidelity: typography feel, nav/chrome tint, control weight, button/chip/input/select styling, border strength, shadow/contact treatment, and overall polish language match the mock rather than default implementation styles.
 
 Scrutinize these regions separately:
 
@@ -185,6 +188,7 @@ Scrutinize these regions separately:
 - Viewport ownership: whether the browser window feels like the real app or like a board/mock being displayed inside HTML.
 
 Give strict scrutiny to all ordinary UI areas. Controls, chips, spacing, borders, navigation, content structure, and layout proportions should be extremely close everywhere on the screen. Allow relatively more tolerance only for truly bespoke illustration regions such as custom anatomy/body graphics, and even then preserve their compositional role.
+Judge “looks like the same app” and “looks like the same styling system” separately. A screenshot can preserve structure but still fail because it reads like a default implementation instead of the approved mock.
 
 If a mismatch is visible, fix it. Do not call it complete because the implementation is "close."
 
@@ -215,6 +219,8 @@ Add these implementation-specific failure checks:
 - Is extra presentation padding making the page feel like an exhibit rather than an application shell?
 - Is the browser still showing a second neutral page around the product instead of the product itself owning that space?
 - Is a floating rounded shell being excused as a design choice when it is really the board frame leaking into implementation?
+- Did the implementation preserve layout while silently swapping in heavier typography, flatter chrome, more obvious borders, generic buttons, or stock control styling?
+- If the approved mock were hidden and only the implementation shown, would it read like the same design system or just the same wireframe?
 
 ## Scale Calibration Pass
 

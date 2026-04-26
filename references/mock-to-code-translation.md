@@ -41,6 +41,7 @@ If `design/history.md` exists, read it too. Use it to understand why prior desig
 Write this into `design/implementation-reading.md` in delivery mode.
 
 The target is not "similar" or "inspired by." The target is a near one-to-one reproduction of the approved mock, including spacing, geometry, component state, shadow treatment, border strength, typography rhythm, and responsive behavior.
+Layout fidelity and style fidelity are separate gates. Matching the placement while drifting into a different visual language is still a failure.
 
 ## Translation Priorities
 
@@ -90,6 +91,7 @@ The implementation should match the mock in:
 Do not accept "close enough" when the mismatch is visible in a screenshot. Fix it. The user should not be able to tell the implementation apart from the approved mock without deliberate forensic inspection.
 
 Treat any ordinary visible mismatch as a blocker, not a polish note.
+Treat style-system drift as a blocker even when the composition is preserved.
 
 Treat these as explicit blockers as well:
 
@@ -98,6 +100,8 @@ Treat these as explicit blockers as well:
 - the mobile region is treated as a device mockup instead of responsive product behavior
 - the outer board frame, poster spacing, or phone hardware silhouette are recreated as if they were product requirements
 - the browser still shows a second presentation canvas or extra perimeter padding around what should be the real app
+- the implementation preserves layout while typography, chrome tone, border treatment, component proportions, or accent handling visibly diverge from the approved mock
+- the UI reads like a default shadcn/Tailwind implementation wearing the mock's structure instead of reproducing the mock's styling language
 
 Judge the match section by section, not only as one overall impression:
 
@@ -109,6 +113,7 @@ Judge the match section by section, not only as one overall impression:
 - visible interaction states
 
 Do not let a strong overall mood hide easy misses in the header, top controls, spacing, chip styling, or layout geometry. Those regions are often the easiest to reproduce and should be held to the strictest standard.
+Do not let correct placement hide style misses. Border strength, fill tone, chip shape, button weight, input styling, nav tint, text contrast, and shadow/contact treatment should be judged independently from geometry.
 
 If the mock contains a bespoke generated illustration region such as a body silhouette or custom anatomy-style figure, that zone may be allowed a looser match than the surrounding UI chrome. Preserve its role and composition, but do not use illustration difficulty as an excuse for drift in the rest of the interface.
 

@@ -5,6 +5,7 @@ List every remaining mismatch here. Delete or mark resolved items only after the
 Only explicitly tolerated hard-illustration exceptions may remain before signoff.
 Do not mark this file empty on the first comparison pass.
 Do not replace this ledger with a prose summary. Keep the table until every row is truly resolved.
+Style-only drift still belongs in this ledger. If placement is correct but styling is visibly wrong, keep the row open.
 Keep this exact table structure. When no unresolved ordinary gaps remain, keep the table and use:
 `| None | n/a | n/a | No unresolved ordinary UI mismatches remain after pass <n>. | n/a | n/a | yes |`
 
